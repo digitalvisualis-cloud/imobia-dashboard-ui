@@ -15,7 +15,10 @@ export const Route = createFileRoute("/imoveis")({
       { name: "description", content: "Tua carteira de imóveis publicados, em rascunho ou pausados." },
     ],
   }),
-  validateSearch: (s: Record<string, unknown>) => ({ empty: s.empty === "1" || s.empty === 1 }),
+  validateSearch: (s: Record<string, unknown>): { empty?: boolean } => {
+    const isEmpty = s.empty === "1" || s.empty === 1;
+    return isEmpty ? { empty: true } : {};
+  },
   component: ImoveisPage,
 });
 

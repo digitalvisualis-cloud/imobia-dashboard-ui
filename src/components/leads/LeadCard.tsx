@@ -1,4 +1,5 @@
 import type { Lead } from "@/lib/types";
+import { Link } from "@tanstack/react-router";
 import { TemperaturaBadge } from "./TemperaturaBadge";
 import { formatBRL, formatRelative, formatTelefone } from "@/lib/format";
 import { getImovel } from "@/data/imoveis";
@@ -7,7 +8,11 @@ import { GripVertical } from "lucide-react";
 export function LeadCard({ lead }: { lead: Lead }) {
   const imovel = getImovel(lead.imovelInteresseId);
   return (
-    <div className="group cursor-grab rounded-lg border border-border bg-card p-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-150 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md active:cursor-grabbing">
+    <Link
+      to="/leads/$id"
+      params={{ id: lead.id }}
+      className="group block cursor-grab rounded-lg border border-border bg-card p-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-150 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md active:cursor-grabbing"
+    >
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
           <div className="font-display text-sm font-semibold text-foreground">{lead.nome}</div>

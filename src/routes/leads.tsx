@@ -17,7 +17,10 @@ export const Route = createFileRoute("/leads")({
       { name: "description", content: "Acompanha teus leads em cada etapa do funil de vendas." },
     ],
   }),
-  validateSearch: (s: Record<string, unknown>) => ({ empty: s.empty === "1" || s.empty === 1 }),
+  validateSearch: (s: Record<string, unknown>): { empty?: boolean } => {
+    const isEmpty = s.empty === "1" || s.empty === 1;
+    return isEmpty ? { empty: true } : {};
+  },
   component: LeadsPage,
 });
 
