@@ -10,6 +10,12 @@ export type TipoImovel =
   | "studio";
 export type StatusImovel = "publicado" | "rascunho" | "vendido" | "pausado";
 
+export interface ImovelStats {
+  views: number;
+  leads: number;
+  posts: number;
+}
+
 export interface Imovel {
   id: string;
   codigo: string;
@@ -19,14 +25,47 @@ export interface Imovel {
   bairro: string;
   cidade: string;
   uf: string;
+  endereco?: string;
   preco: number;
+  condominio?: number;
+  iptu?: number;
   area: number;
   quartos: number;
   banheiros: number;
   vagas: number;
   foto: string;
+  fotos?: string[];
+  descricao?: string;
+  amenidades?: string[];
   status: StatusImovel;
   destaque?: boolean;
+  agenteId?: string;
+  stats?: ImovelStats;
+}
+
+export interface Contrato {
+  id: string;
+  cliente: string;
+  cpfCnpj?: string;
+  contato?: string;
+  imovel: string;
+  leadId?: string;
+  tipo?: "Venda" | "Aluguel" | "Administração";
+  valor: number;
+  comissaoPct?: number;
+  status: string;
+  data: string;
+  dataFim?: string;
+  observacoes?: string;
+}
+
+export interface PostMidia {
+  id: string;
+  imovelId: string;
+  template: "ia" | "clean" | "borda" | "premium";
+  porIA: boolean;
+  legenda: string;
+  dataIso: string;
 }
 
 export type Etapa =
