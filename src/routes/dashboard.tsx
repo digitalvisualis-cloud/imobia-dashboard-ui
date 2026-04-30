@@ -26,8 +26,8 @@ export const Route = createFileRoute("/dashboard")({
 function DashboardPage() {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 800);
-    return () => clearTimeout(t);
+    const t = window.setTimeout(() => setLoading(false), 600);
+    return () => window.clearTimeout(t);
   }, []);
 
   return (
