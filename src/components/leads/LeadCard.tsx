@@ -37,6 +37,6 @@ export function LeadCard({ lead }: { lead: Lead }) {
           </div>
         )}
       </div>
-    </div>
+    </Link>
   );
 }
