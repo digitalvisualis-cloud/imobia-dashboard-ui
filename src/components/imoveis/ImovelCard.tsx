@@ -22,10 +22,10 @@ const STATUS_LABEL: Record<string, { label: string; cor: string }> = {
 export function ImovelCard({ imovel }: { imovel: Imovel }) {
   const status = STATUS_LABEL[imovel.status];
   const sufixo = imovel.operacao === "aluguel" ? "/mês" : "";
+  const stop = (e: React.MouseEvent) => { e.preventDefault(); e.stopPropagation(); };
 
   return (
     <Link to="/imoveis/$id" params={{ id: imovel.id }} className="group card-soft block overflow-hidden">
-      <article>
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         <img
           src={imovel.foto}
@@ -46,13 +46,13 @@ export function ImovelCard({ imovel }: { imovel: Imovel }) {
           </div>
         </div>
         <div className="absolute inset-x-0 bottom-0 flex translate-y-2 items-center justify-end gap-1.5 bg-gradient-to-t from-black/40 to-transparent p-3 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
-          <button className="rounded-md bg-background p-1.5 text-foreground shadow-sm hover:bg-primary hover:text-primary-foreground" title="Editar">
+          <button onClick={stop} className="rounded-md bg-background p-1.5 text-foreground shadow-sm hover:bg-primary hover:text-primary-foreground" title="Editar">
             <Pencil className="h-3.5 w-3.5" />
           </button>
-          <button className="rounded-md bg-background p-1.5 text-foreground shadow-sm hover:bg-primary hover:text-primary-foreground" title="Ver no site">
+          <button onClick={stop} className="rounded-md bg-background p-1.5 text-foreground shadow-sm hover:bg-primary hover:text-primary-foreground" title="Ver no site">
             <Eye className="h-3.5 w-3.5" />
           </button>
-          <button className="rounded-md bg-background p-1.5 text-foreground shadow-sm hover:bg-primary hover:text-primary-foreground" title="Gerar post IA">
+          <button onClick={stop} className="rounded-md bg-background p-1.5 text-foreground shadow-sm hover:bg-primary hover:text-primary-foreground" title="Gerar post IA">
             <Sparkles className="h-3.5 w-3.5" />
           </button>
         </div>
@@ -80,6 +80,6 @@ export function ImovelCard({ imovel }: { imovel: Imovel }) {
           {imovel.vagas > 0 && <><span className="opacity-50">·</span><span>{imovel.vagas}v</span></>}
         </div>
       </div>
-    </article>
+    </Link>
   );
 }
