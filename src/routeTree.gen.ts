@@ -24,6 +24,7 @@ import { Route as AgendaRouteImport } from './routes/agenda'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConfiguracoesIndexRouteImport } from './routes/configuracoes.index'
 import { Route as ImoveisCadastrarRouteImport } from './routes/imoveis.cadastrar'
+import { Route as ImoveisIdRouteImport } from './routes/imoveis.$id'
 import { Route as ConfiguracoesSiteRouteImport } from './routes/configuracoes.site'
 import { Route as ConfiguracoesRedesRouteImport } from './routes/configuracoes.redes'
 import { Route as ConfiguracoesPlanoRouteImport } from './routes/configuracoes.plano'
@@ -111,6 +112,11 @@ const ImoveisCadastrarRoute = ImoveisCadastrarRouteImport.update({
   path: '/cadastrar',
   getParentRoute: () => ImoveisRoute,
 } as any)
+const ImoveisIdRoute = ImoveisIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ImoveisRoute,
+} as any)
 const ConfiguracoesSiteRoute = ConfiguracoesSiteRouteImport.update({
   id: '/site',
   path: '/site',
@@ -193,6 +199,7 @@ export interface FileRoutesByFullPath {
   '/configuracoes/plano': typeof ConfiguracoesPlanoRoute
   '/configuracoes/redes': typeof ConfiguracoesRedesRoute
   '/configuracoes/site': typeof ConfiguracoesSiteRoute
+  '/imoveis/$id': typeof ImoveisIdRoute
   '/imoveis/cadastrar': typeof ImoveisCadastrarRoute
   '/configuracoes/': typeof ConfiguracoesIndexRoute
 }
@@ -220,6 +227,7 @@ export interface FileRoutesByTo {
   '/configuracoes/plano': typeof ConfiguracoesPlanoRoute
   '/configuracoes/redes': typeof ConfiguracoesRedesRoute
   '/configuracoes/site': typeof ConfiguracoesSiteRoute
+  '/imoveis/$id': typeof ImoveisIdRoute
   '/imoveis/cadastrar': typeof ImoveisCadastrarRoute
   '/configuracoes': typeof ConfiguracoesIndexRoute
 }
@@ -249,6 +257,7 @@ export interface FileRoutesById {
   '/configuracoes/plano': typeof ConfiguracoesPlanoRoute
   '/configuracoes/redes': typeof ConfiguracoesRedesRoute
   '/configuracoes/site': typeof ConfiguracoesSiteRoute
+  '/imoveis/$id': typeof ImoveisIdRoute
   '/imoveis/cadastrar': typeof ImoveisCadastrarRoute
   '/configuracoes/': typeof ConfiguracoesIndexRoute
 }
@@ -279,6 +288,7 @@ export interface FileRouteTypes {
     | '/configuracoes/plano'
     | '/configuracoes/redes'
     | '/configuracoes/site'
+    | '/imoveis/$id'
     | '/imoveis/cadastrar'
     | '/configuracoes/'
   fileRoutesByTo: FileRoutesByTo
@@ -306,6 +316,7 @@ export interface FileRouteTypes {
     | '/configuracoes/plano'
     | '/configuracoes/redes'
     | '/configuracoes/site'
+    | '/imoveis/$id'
     | '/imoveis/cadastrar'
     | '/configuracoes'
   id:
@@ -334,6 +345,7 @@ export interface FileRouteTypes {
     | '/configuracoes/plano'
     | '/configuracoes/redes'
     | '/configuracoes/site'
+    | '/imoveis/$id'
     | '/imoveis/cadastrar'
     | '/configuracoes/'
   fileRoutesById: FileRoutesById
@@ -461,6 +473,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ImoveisCadastrarRouteImport
       parentRoute: typeof ImoveisRoute
     }
+    '/imoveis/$id': {
+      id: '/imoveis/$id'
+      path: '/$id'
+      fullPath: '/imoveis/$id'
+      preLoaderRoute: typeof ImoveisIdRouteImport
+      parentRoute: typeof ImoveisRoute
+    }
     '/configuracoes/site': {
       id: '/configuracoes/site'
       path: '/site'
@@ -576,10 +595,12 @@ const ConfiguracoesRouteWithChildren = ConfiguracoesRoute._addFileChildren(
 )
 
 interface ImoveisRouteChildren {
+  ImoveisIdRoute: typeof ImoveisIdRoute
   ImoveisCadastrarRoute: typeof ImoveisCadastrarRoute
 }
 
 const ImoveisRouteChildren: ImoveisRouteChildren = {
+  ImoveisIdRoute: ImoveisIdRoute,
   ImoveisCadastrarRoute: ImoveisCadastrarRoute,
 }
 
