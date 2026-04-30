@@ -47,7 +47,7 @@ function LeadsPage() {
             title="Sem leads ainda"
             description="Ativa teu agente IA pra capturar leads 24/7 enquanto tu foca no fechamento."
             action={
-              <Link to="/configuracoes/agente-ia" className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">Ativar agente IA</Link>
+              <Link to="/agente-ia" className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">Ativar agente IA</Link>
             }
           />
         ) : (

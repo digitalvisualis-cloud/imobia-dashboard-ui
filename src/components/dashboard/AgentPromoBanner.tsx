@@ -20,7 +20,7 @@ export function AgentPromoBanner() {
           </div>
         </div>
         <Link
-          to="/configuracoes/agente-ia"
+          to="/agente-ia"
           className="inline-flex items-center gap-1.5 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
         >
           Ativar agora <ArrowRight className="h-4 w-4" />
