@@ -1,0 +1,34 @@
+import type { Imovel } from "@/lib/types";
+
+const u = (id: string) =>
+  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=800&q=70`;
+
+export const imoveis: Imovel[] = [
+  { id: "1", codigo: "IMV-001", titulo: "Apartamento moderno com vista pro parque", tipo: "apartamento", operacao: "venda", bairro: "Pinheiros", cidade: "São Paulo", uf: "SP", preco: 1290000, area: 92, quartos: 3, banheiros: 2, vagas: 2, foto: u("photo-1502672260266-1c1ef2d93688"), status: "publicado", destaque: true },
+  { id: "2", codigo: "IMV-002", titulo: "Casa térrea em condomínio fechado", tipo: "casa", operacao: "venda", bairro: "Granja Viana", cidade: "Cotia", uf: "SP", preco: 2450000, area: 240, quartos: 4, banheiros: 4, vagas: 4, foto: u("photo-1568605114967-8130f3a36994"), status: "publicado", destaque: true },
+  { id: "3", codigo: "IMV-003", titulo: "Cobertura duplex com piscina privativa", tipo: "cobertura", operacao: "venda", bairro: "Ipanema", cidade: "Rio de Janeiro", uf: "RJ", preco: 4200000, area: 280, quartos: 4, banheiros: 5, vagas: 3, foto: u("photo-1613490493576-7fde63acd811"), status: "publicado", destaque: true },
+  { id: "4", codigo: "IMV-004", titulo: "Studio compacto bem localizado", tipo: "studio", operacao: "aluguel", bairro: "Vila Madalena", cidade: "São Paulo", uf: "SP", preco: 2800, area: 32, quartos: 1, banheiros: 1, vagas: 0, foto: u("photo-1522708323590-d24dbb6b0267"), status: "publicado" },
+  { id: "5", codigo: "IMV-005", titulo: "Sala comercial na Faria Lima", tipo: "sala-comercial", operacao: "aluguel", bairro: "Itaim Bibi", cidade: "São Paulo", uf: "SP", preco: 8500, area: 65, quartos: 0, banheiros: 1, vagas: 1, foto: u("photo-1497366216548-37526070297c"), status: "publicado" },
+  { id: "6", codigo: "IMV-006", titulo: "Apartamento 2 quartos próximo ao metrô", tipo: "apartamento", operacao: "venda", bairro: "Vila Mariana", cidade: "São Paulo", uf: "SP", preco: 680000, area: 58, quartos: 2, banheiros: 1, vagas: 1, foto: u("photo-1493809842364-78817add7ffb"), status: "publicado" },
+  { id: "7", codigo: "IMV-007", titulo: "Casa de praia com 5 suítes", tipo: "casa", operacao: "venda", bairro: "Riviera", cidade: "Bertioga", uf: "SP", preco: 3850000, area: 420, quartos: 5, banheiros: 6, vagas: 6, foto: u("photo-1564013799919-ab600027ffc6"), status: "publicado", destaque: true },
+  { id: "8", codigo: "IMV-008", titulo: "Apartamento alto padrão com varanda gourmet", tipo: "apartamento", operacao: "venda", bairro: "Moema", cidade: "São Paulo", uf: "SP", preco: 1850000, area: 135, quartos: 3, banheiros: 4, vagas: 2, foto: u("photo-1545324418-cc1a3fa10c00"), status: "publicado" },
+  { id: "9", codigo: "IMV-009", titulo: "Terreno comercial 800m²", tipo: "terreno", operacao: "venda", bairro: "Tatuapé", cidade: "São Paulo", uf: "SP", preco: 1200000, area: 800, quartos: 0, banheiros: 0, vagas: 0, foto: u("photo-1500382017468-9049fed747ef"), status: "publicado" },
+  { id: "10", codigo: "IMV-010", titulo: "Apartamento garden com quintal privativo", tipo: "apartamento", operacao: "venda", bairro: "Perdizes", cidade: "São Paulo", uf: "SP", preco: 1450000, area: 110, quartos: 3, banheiros: 3, vagas: 2, foto: u("photo-1560448204-e02f11c3d0e2"), status: "rascunho" },
+  { id: "11", codigo: "IMV-011", titulo: "Casa em condomínio com 4 suítes", tipo: "casa", operacao: "venda", bairro: "Alphaville", cidade: "Barueri", uf: "SP", preco: 3200000, area: 320, quartos: 4, banheiros: 5, vagas: 4, foto: u("photo-1512917774080-9991f1c4c750"), status: "publicado" },
+  { id: "12", codigo: "IMV-012", titulo: "Studio mobiliado na Berrini", tipo: "studio", operacao: "aluguel", bairro: "Brooklin", cidade: "São Paulo", uf: "SP", preco: 3400, area: 38, quartos: 1, banheiros: 1, vagas: 1, foto: u("photo-1502672023488-70e25813eb80"), status: "publicado" },
+  { id: "13", codigo: "IMV-013", titulo: "Apartamento 1 quarto centro histórico", tipo: "apartamento", operacao: "aluguel", bairro: "Centro", cidade: "Curitiba", uf: "PR", preco: 1900, area: 45, quartos: 1, banheiros: 1, vagas: 0, foto: u("photo-1486304873000-235643847519"), status: "publicado" },
+  { id: "14", codigo: "IMV-014", titulo: "Casa com piscina e área gourmet", tipo: "casa", operacao: "venda", bairro: "Batel", cidade: "Curitiba", uf: "PR", preco: 1950000, area: 280, quartos: 4, banheiros: 4, vagas: 3, foto: u("photo-1576941089067-2de3c901e126"), status: "publicado" },
+  { id: "15", codigo: "IMV-015", titulo: "Cobertura linear no Leblon", tipo: "cobertura", operacao: "venda", bairro: "Leblon", cidade: "Rio de Janeiro", uf: "RJ", preco: 3950000, area: 220, quartos: 3, banheiros: 4, vagas: 2, foto: u("photo-1600585154340-be6161a56a0c"), status: "publicado", destaque: true },
+  { id: "16", codigo: "IMV-016", titulo: "Apartamento na Barra com vista mar", tipo: "apartamento", operacao: "aluguel", bairro: "Barra da Tijuca", cidade: "Rio de Janeiro", uf: "RJ", preco: 6200, area: 95, quartos: 3, banheiros: 2, vagas: 2, foto: u("photo-1551361415-69c87624334f"), status: "publicado" },
+  { id: "17", codigo: "IMV-017", titulo: "Sala comercial Jardim Paulista", tipo: "sala-comercial", operacao: "venda", bairro: "Jardim Paulista", cidade: "São Paulo", uf: "SP", preco: 980000, area: 78, quartos: 0, banheiros: 2, vagas: 1, foto: u("photo-1497366754035-f200968a6e72"), status: "publicado" },
+  { id: "18", codigo: "IMV-018", titulo: "Apartamento 4 quartos em prédio clássico", tipo: "apartamento", operacao: "venda", bairro: "Higienópolis", cidade: "São Paulo", uf: "SP", preco: 2100000, area: 180, quartos: 4, banheiros: 3, vagas: 2, foto: u("photo-1493663284031-b7e3aefcae8e"), status: "vendido" },
+  { id: "19", codigo: "IMV-019", titulo: "Casa rústica em condomínio", tipo: "casa", operacao: "venda", bairro: "Granja Julieta", cidade: "São Paulo", uf: "SP", preco: 2780000, area: 310, quartos: 4, banheiros: 4, vagas: 4, foto: u("photo-1572120360610-d971b9d7767c"), status: "pausado" },
+  { id: "20", codigo: "IMV-020", titulo: "Apartamento reformado com decoração", tipo: "apartamento", operacao: "venda", bairro: "Consolação", cidade: "São Paulo", uf: "SP", preco: 890000, area: 75, quartos: 2, banheiros: 2, vagas: 1, foto: u("photo-1554995207-c18c203602cb"), status: "publicado" },
+  { id: "21", codigo: "IMV-021", titulo: "Terreno residencial em condomínio", tipo: "terreno", operacao: "venda", bairro: "Tamboré", cidade: "Santana de Parnaíba", uf: "SP", preco: 580000, area: 450, quartos: 0, banheiros: 0, vagas: 0, foto: u("photo-1416331108676-a22ccb276e35"), status: "publicado" },
+  { id: "22", codigo: "IMV-022", titulo: "Studio investidor com renda garantida", tipo: "studio", operacao: "venda", bairro: "República", cidade: "São Paulo", uf: "SP", preco: 285000, area: 28, quartos: 1, banheiros: 1, vagas: 0, foto: u("photo-1567496898669-ee935f5f647a"), status: "publicado" },
+];
+
+export function getImovel(id?: string): Imovel | undefined {
+  if (!id) return undefined;
+  return imoveis.find((i) => i.id === id);
+}

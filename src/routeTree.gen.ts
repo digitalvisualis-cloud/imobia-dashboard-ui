@@ -9,38 +9,437 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PortaisRouteImport } from './routes/portais'
+import { Route as NegociosRouteImport } from './routes/negocios'
+import { Route as MeuSiteRouteImport } from './routes/meu-site'
+import { Route as LeadsInboxRouteImport } from './routes/leads-inbox'
+import { Route as LeadsRouteImport } from './routes/leads'
+import { Route as ImoveisRouteImport } from './routes/imoveis'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ContratosRouteImport } from './routes/contratos'
+import { Route as ConteudoIaRouteImport } from './routes/conteudo-ia'
+import { Route as ContatosRouteImport } from './routes/contatos'
+import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
+import { Route as AgendaRouteImport } from './routes/agenda'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ConfiguracoesIndexRouteImport } from './routes/configuracoes.index'
+import { Route as ImoveisCadastrarRouteImport } from './routes/imoveis.cadastrar'
+import { Route as ConfiguracoesSiteRouteImport } from './routes/configuracoes.site'
+import { Route as ConfiguracoesRedesRouteImport } from './routes/configuracoes.redes'
+import { Route as ConfiguracoesPlanoRouteImport } from './routes/configuracoes.plano'
+import { Route as ConfiguracoesPerfilRouteImport } from './routes/configuracoes.perfil'
+import { Route as ConfiguracoesMarcaRouteImport } from './routes/configuracoes.marca'
+import { Route as ConfiguracoesLegaisRouteImport } from './routes/configuracoes.legais'
+import { Route as ConfiguracoesIntegracoesRouteImport } from './routes/configuracoes.integracoes'
+import { Route as ConfiguracoesEquipeRouteImport } from './routes/configuracoes.equipe'
+import { Route as ConfiguracoesEmpresaRouteImport } from './routes/configuracoes.empresa'
+import { Route as ConfiguracoesContatoRouteImport } from './routes/configuracoes.contato'
+import { Route as ConfiguracoesAgenteIaRouteImport } from './routes/configuracoes.agente-ia'
 
+const PortaisRoute = PortaisRouteImport.update({
+  id: '/portais',
+  path: '/portais',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NegociosRoute = NegociosRouteImport.update({
+  id: '/negocios',
+  path: '/negocios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MeuSiteRoute = MeuSiteRouteImport.update({
+  id: '/meu-site',
+  path: '/meu-site',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeadsInboxRoute = LeadsInboxRouteImport.update({
+  id: '/leads-inbox',
+  path: '/leads-inbox',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeadsRoute = LeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImoveisRoute = ImoveisRouteImport.update({
+  id: '/imoveis',
+  path: '/imoveis',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContratosRoute = ContratosRouteImport.update({
+  id: '/contratos',
+  path: '/contratos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConteudoIaRoute = ConteudoIaRouteImport.update({
+  id: '/conteudo-ia',
+  path: '/conteudo-ia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContatosRoute = ContatosRouteImport.update({
+  id: '/contatos',
+  path: '/contatos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
+  id: '/configuracoes',
+  path: '/configuracoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgendaRoute = AgendaRouteImport.update({
+  id: '/agenda',
+  path: '/agenda',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConfiguracoesIndexRoute = ConfiguracoesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ConfiguracoesRoute,
+} as any)
+const ImoveisCadastrarRoute = ImoveisCadastrarRouteImport.update({
+  id: '/cadastrar',
+  path: '/cadastrar',
+  getParentRoute: () => ImoveisRoute,
+} as any)
+const ConfiguracoesSiteRoute = ConfiguracoesSiteRouteImport.update({
+  id: '/site',
+  path: '/site',
+  getParentRoute: () => ConfiguracoesRoute,
+} as any)
+const ConfiguracoesRedesRoute = ConfiguracoesRedesRouteImport.update({
+  id: '/redes',
+  path: '/redes',
+  getParentRoute: () => ConfiguracoesRoute,
+} as any)
+const ConfiguracoesPlanoRoute = ConfiguracoesPlanoRouteImport.update({
+  id: '/plano',
+  path: '/plano',
+  getParentRoute: () => ConfiguracoesRoute,
+} as any)
+const ConfiguracoesPerfilRoute = ConfiguracoesPerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => ConfiguracoesRoute,
+} as any)
+const ConfiguracoesMarcaRoute = ConfiguracoesMarcaRouteImport.update({
+  id: '/marca',
+  path: '/marca',
+  getParentRoute: () => ConfiguracoesRoute,
+} as any)
+const ConfiguracoesLegaisRoute = ConfiguracoesLegaisRouteImport.update({
+  id: '/legais',
+  path: '/legais',
+  getParentRoute: () => ConfiguracoesRoute,
+} as any)
+const ConfiguracoesIntegracoesRoute =
+  ConfiguracoesIntegracoesRouteImport.update({
+    id: '/integracoes',
+    path: '/integracoes',
+    getParentRoute: () => ConfiguracoesRoute,
+  } as any)
+const ConfiguracoesEquipeRoute = ConfiguracoesEquipeRouteImport.update({
+  id: '/equipe',
+  path: '/equipe',
+  getParentRoute: () => ConfiguracoesRoute,
+} as any)
+const ConfiguracoesEmpresaRoute = ConfiguracoesEmpresaRouteImport.update({
+  id: '/empresa',
+  path: '/empresa',
+  getParentRoute: () => ConfiguracoesRoute,
+} as any)
+const ConfiguracoesContatoRoute = ConfiguracoesContatoRouteImport.update({
+  id: '/contato',
+  path: '/contato',
+  getParentRoute: () => ConfiguracoesRoute,
+} as any)
+const ConfiguracoesAgenteIaRoute = ConfiguracoesAgenteIaRouteImport.update({
+  id: '/agente-ia',
+  path: '/agente-ia',
+  getParentRoute: () => ConfiguracoesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agenda': typeof AgendaRoute
+  '/configuracoes': typeof ConfiguracoesRouteWithChildren
+  '/contatos': typeof ContatosRoute
+  '/conteudo-ia': typeof ConteudoIaRoute
+  '/contratos': typeof ContratosRoute
+  '/dashboard': typeof DashboardRoute
+  '/imoveis': typeof ImoveisRouteWithChildren
+  '/leads': typeof LeadsRoute
+  '/leads-inbox': typeof LeadsInboxRoute
+  '/meu-site': typeof MeuSiteRoute
+  '/negocios': typeof NegociosRoute
+  '/portais': typeof PortaisRoute
+  '/configuracoes/agente-ia': typeof ConfiguracoesAgenteIaRoute
+  '/configuracoes/contato': typeof ConfiguracoesContatoRoute
+  '/configuracoes/empresa': typeof ConfiguracoesEmpresaRoute
+  '/configuracoes/equipe': typeof ConfiguracoesEquipeRoute
+  '/configuracoes/integracoes': typeof ConfiguracoesIntegracoesRoute
+  '/configuracoes/legais': typeof ConfiguracoesLegaisRoute
+  '/configuracoes/marca': typeof ConfiguracoesMarcaRoute
+  '/configuracoes/perfil': typeof ConfiguracoesPerfilRoute
+  '/configuracoes/plano': typeof ConfiguracoesPlanoRoute
+  '/configuracoes/redes': typeof ConfiguracoesRedesRoute
+  '/configuracoes/site': typeof ConfiguracoesSiteRoute
+  '/imoveis/cadastrar': typeof ImoveisCadastrarRoute
+  '/configuracoes/': typeof ConfiguracoesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agenda': typeof AgendaRoute
+  '/contatos': typeof ContatosRoute
+  '/conteudo-ia': typeof ConteudoIaRoute
+  '/contratos': typeof ContratosRoute
+  '/dashboard': typeof DashboardRoute
+  '/imoveis': typeof ImoveisRouteWithChildren
+  '/leads': typeof LeadsRoute
+  '/leads-inbox': typeof LeadsInboxRoute
+  '/meu-site': typeof MeuSiteRoute
+  '/negocios': typeof NegociosRoute
+  '/portais': typeof PortaisRoute
+  '/configuracoes/agente-ia': typeof ConfiguracoesAgenteIaRoute
+  '/configuracoes/contato': typeof ConfiguracoesContatoRoute
+  '/configuracoes/empresa': typeof ConfiguracoesEmpresaRoute
+  '/configuracoes/equipe': typeof ConfiguracoesEquipeRoute
+  '/configuracoes/integracoes': typeof ConfiguracoesIntegracoesRoute
+  '/configuracoes/legais': typeof ConfiguracoesLegaisRoute
+  '/configuracoes/marca': typeof ConfiguracoesMarcaRoute
+  '/configuracoes/perfil': typeof ConfiguracoesPerfilRoute
+  '/configuracoes/plano': typeof ConfiguracoesPlanoRoute
+  '/configuracoes/redes': typeof ConfiguracoesRedesRoute
+  '/configuracoes/site': typeof ConfiguracoesSiteRoute
+  '/imoveis/cadastrar': typeof ImoveisCadastrarRoute
+  '/configuracoes': typeof ConfiguracoesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/agenda': typeof AgendaRoute
+  '/configuracoes': typeof ConfiguracoesRouteWithChildren
+  '/contatos': typeof ContatosRoute
+  '/conteudo-ia': typeof ConteudoIaRoute
+  '/contratos': typeof ContratosRoute
+  '/dashboard': typeof DashboardRoute
+  '/imoveis': typeof ImoveisRouteWithChildren
+  '/leads': typeof LeadsRoute
+  '/leads-inbox': typeof LeadsInboxRoute
+  '/meu-site': typeof MeuSiteRoute
+  '/negocios': typeof NegociosRoute
+  '/portais': typeof PortaisRoute
+  '/configuracoes/agente-ia': typeof ConfiguracoesAgenteIaRoute
+  '/configuracoes/contato': typeof ConfiguracoesContatoRoute
+  '/configuracoes/empresa': typeof ConfiguracoesEmpresaRoute
+  '/configuracoes/equipe': typeof ConfiguracoesEquipeRoute
+  '/configuracoes/integracoes': typeof ConfiguracoesIntegracoesRoute
+  '/configuracoes/legais': typeof ConfiguracoesLegaisRoute
+  '/configuracoes/marca': typeof ConfiguracoesMarcaRoute
+  '/configuracoes/perfil': typeof ConfiguracoesPerfilRoute
+  '/configuracoes/plano': typeof ConfiguracoesPlanoRoute
+  '/configuracoes/redes': typeof ConfiguracoesRedesRoute
+  '/configuracoes/site': typeof ConfiguracoesSiteRoute
+  '/imoveis/cadastrar': typeof ImoveisCadastrarRoute
+  '/configuracoes/': typeof ConfiguracoesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/agenda'
+    | '/configuracoes'
+    | '/contatos'
+    | '/conteudo-ia'
+    | '/contratos'
+    | '/dashboard'
+    | '/imoveis'
+    | '/leads'
+    | '/leads-inbox'
+    | '/meu-site'
+    | '/negocios'
+    | '/portais'
+    | '/configuracoes/agente-ia'
+    | '/configuracoes/contato'
+    | '/configuracoes/empresa'
+    | '/configuracoes/equipe'
+    | '/configuracoes/integracoes'
+    | '/configuracoes/legais'
+    | '/configuracoes/marca'
+    | '/configuracoes/perfil'
+    | '/configuracoes/plano'
+    | '/configuracoes/redes'
+    | '/configuracoes/site'
+    | '/imoveis/cadastrar'
+    | '/configuracoes/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/agenda'
+    | '/contatos'
+    | '/conteudo-ia'
+    | '/contratos'
+    | '/dashboard'
+    | '/imoveis'
+    | '/leads'
+    | '/leads-inbox'
+    | '/meu-site'
+    | '/negocios'
+    | '/portais'
+    | '/configuracoes/agente-ia'
+    | '/configuracoes/contato'
+    | '/configuracoes/empresa'
+    | '/configuracoes/equipe'
+    | '/configuracoes/integracoes'
+    | '/configuracoes/legais'
+    | '/configuracoes/marca'
+    | '/configuracoes/perfil'
+    | '/configuracoes/plano'
+    | '/configuracoes/redes'
+    | '/configuracoes/site'
+    | '/imoveis/cadastrar'
+    | '/configuracoes'
+  id:
+    | '__root__'
+    | '/'
+    | '/agenda'
+    | '/configuracoes'
+    | '/contatos'
+    | '/conteudo-ia'
+    | '/contratos'
+    | '/dashboard'
+    | '/imoveis'
+    | '/leads'
+    | '/leads-inbox'
+    | '/meu-site'
+    | '/negocios'
+    | '/portais'
+    | '/configuracoes/agente-ia'
+    | '/configuracoes/contato'
+    | '/configuracoes/empresa'
+    | '/configuracoes/equipe'
+    | '/configuracoes/integracoes'
+    | '/configuracoes/legais'
+    | '/configuracoes/marca'
+    | '/configuracoes/perfil'
+    | '/configuracoes/plano'
+    | '/configuracoes/redes'
+    | '/configuracoes/site'
+    | '/imoveis/cadastrar'
+    | '/configuracoes/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AgendaRoute: typeof AgendaRoute
+  ConfiguracoesRoute: typeof ConfiguracoesRouteWithChildren
+  ContatosRoute: typeof ContatosRoute
+  ConteudoIaRoute: typeof ConteudoIaRoute
+  ContratosRoute: typeof ContratosRoute
+  DashboardRoute: typeof DashboardRoute
+  ImoveisRoute: typeof ImoveisRouteWithChildren
+  LeadsRoute: typeof LeadsRoute
+  LeadsInboxRoute: typeof LeadsInboxRoute
+  MeuSiteRoute: typeof MeuSiteRoute
+  NegociosRoute: typeof NegociosRoute
+  PortaisRoute: typeof PortaisRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/portais': {
+      id: '/portais'
+      path: '/portais'
+      fullPath: '/portais'
+      preLoaderRoute: typeof PortaisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/negocios': {
+      id: '/negocios'
+      path: '/negocios'
+      fullPath: '/negocios'
+      preLoaderRoute: typeof NegociosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/meu-site': {
+      id: '/meu-site'
+      path: '/meu-site'
+      fullPath: '/meu-site'
+      preLoaderRoute: typeof MeuSiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leads-inbox': {
+      id: '/leads-inbox'
+      path: '/leads-inbox'
+      fullPath: '/leads-inbox'
+      preLoaderRoute: typeof LeadsInboxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leads': {
+      id: '/leads'
+      path: '/leads'
+      fullPath: '/leads'
+      preLoaderRoute: typeof LeadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/imoveis': {
+      id: '/imoveis'
+      path: '/imoveis'
+      fullPath: '/imoveis'
+      preLoaderRoute: typeof ImoveisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contratos': {
+      id: '/contratos'
+      path: '/contratos'
+      fullPath: '/contratos'
+      preLoaderRoute: typeof ContratosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conteudo-ia': {
+      id: '/conteudo-ia'
+      path: '/conteudo-ia'
+      fullPath: '/conteudo-ia'
+      preLoaderRoute: typeof ConteudoIaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contatos': {
+      id: '/contatos'
+      path: '/contatos'
+      fullPath: '/contatos'
+      preLoaderRoute: typeof ContatosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/configuracoes': {
+      id: '/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/configuracoes'
+      preLoaderRoute: typeof ConfiguracoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agenda': {
+      id: '/agenda'
+      path: '/agenda'
+      fullPath: '/agenda'
+      preLoaderRoute: typeof AgendaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +447,159 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/configuracoes/': {
+      id: '/configuracoes/'
+      path: '/'
+      fullPath: '/configuracoes/'
+      preLoaderRoute: typeof ConfiguracoesIndexRouteImport
+      parentRoute: typeof ConfiguracoesRoute
+    }
+    '/imoveis/cadastrar': {
+      id: '/imoveis/cadastrar'
+      path: '/cadastrar'
+      fullPath: '/imoveis/cadastrar'
+      preLoaderRoute: typeof ImoveisCadastrarRouteImport
+      parentRoute: typeof ImoveisRoute
+    }
+    '/configuracoes/site': {
+      id: '/configuracoes/site'
+      path: '/site'
+      fullPath: '/configuracoes/site'
+      preLoaderRoute: typeof ConfiguracoesSiteRouteImport
+      parentRoute: typeof ConfiguracoesRoute
+    }
+    '/configuracoes/redes': {
+      id: '/configuracoes/redes'
+      path: '/redes'
+      fullPath: '/configuracoes/redes'
+      preLoaderRoute: typeof ConfiguracoesRedesRouteImport
+      parentRoute: typeof ConfiguracoesRoute
+    }
+    '/configuracoes/plano': {
+      id: '/configuracoes/plano'
+      path: '/plano'
+      fullPath: '/configuracoes/plano'
+      preLoaderRoute: typeof ConfiguracoesPlanoRouteImport
+      parentRoute: typeof ConfiguracoesRoute
+    }
+    '/configuracoes/perfil': {
+      id: '/configuracoes/perfil'
+      path: '/perfil'
+      fullPath: '/configuracoes/perfil'
+      preLoaderRoute: typeof ConfiguracoesPerfilRouteImport
+      parentRoute: typeof ConfiguracoesRoute
+    }
+    '/configuracoes/marca': {
+      id: '/configuracoes/marca'
+      path: '/marca'
+      fullPath: '/configuracoes/marca'
+      preLoaderRoute: typeof ConfiguracoesMarcaRouteImport
+      parentRoute: typeof ConfiguracoesRoute
+    }
+    '/configuracoes/legais': {
+      id: '/configuracoes/legais'
+      path: '/legais'
+      fullPath: '/configuracoes/legais'
+      preLoaderRoute: typeof ConfiguracoesLegaisRouteImport
+      parentRoute: typeof ConfiguracoesRoute
+    }
+    '/configuracoes/integracoes': {
+      id: '/configuracoes/integracoes'
+      path: '/integracoes'
+      fullPath: '/configuracoes/integracoes'
+      preLoaderRoute: typeof ConfiguracoesIntegracoesRouteImport
+      parentRoute: typeof ConfiguracoesRoute
+    }
+    '/configuracoes/equipe': {
+      id: '/configuracoes/equipe'
+      path: '/equipe'
+      fullPath: '/configuracoes/equipe'
+      preLoaderRoute: typeof ConfiguracoesEquipeRouteImport
+      parentRoute: typeof ConfiguracoesRoute
+    }
+    '/configuracoes/empresa': {
+      id: '/configuracoes/empresa'
+      path: '/empresa'
+      fullPath: '/configuracoes/empresa'
+      preLoaderRoute: typeof ConfiguracoesEmpresaRouteImport
+      parentRoute: typeof ConfiguracoesRoute
+    }
+    '/configuracoes/contato': {
+      id: '/configuracoes/contato'
+      path: '/contato'
+      fullPath: '/configuracoes/contato'
+      preLoaderRoute: typeof ConfiguracoesContatoRouteImport
+      parentRoute: typeof ConfiguracoesRoute
+    }
+    '/configuracoes/agente-ia': {
+      id: '/configuracoes/agente-ia'
+      path: '/agente-ia'
+      fullPath: '/configuracoes/agente-ia'
+      preLoaderRoute: typeof ConfiguracoesAgenteIaRouteImport
+      parentRoute: typeof ConfiguracoesRoute
+    }
   }
 }
 
+interface ConfiguracoesRouteChildren {
+  ConfiguracoesAgenteIaRoute: typeof ConfiguracoesAgenteIaRoute
+  ConfiguracoesContatoRoute: typeof ConfiguracoesContatoRoute
+  ConfiguracoesEmpresaRoute: typeof ConfiguracoesEmpresaRoute
+  ConfiguracoesEquipeRoute: typeof ConfiguracoesEquipeRoute
+  ConfiguracoesIntegracoesRoute: typeof ConfiguracoesIntegracoesRoute
+  ConfiguracoesLegaisRoute: typeof ConfiguracoesLegaisRoute
+  ConfiguracoesMarcaRoute: typeof ConfiguracoesMarcaRoute
+  ConfiguracoesPerfilRoute: typeof ConfiguracoesPerfilRoute
+  ConfiguracoesPlanoRoute: typeof ConfiguracoesPlanoRoute
+  ConfiguracoesRedesRoute: typeof ConfiguracoesRedesRoute
+  ConfiguracoesSiteRoute: typeof ConfiguracoesSiteRoute
+  ConfiguracoesIndexRoute: typeof ConfiguracoesIndexRoute
+}
+
+const ConfiguracoesRouteChildren: ConfiguracoesRouteChildren = {
+  ConfiguracoesAgenteIaRoute: ConfiguracoesAgenteIaRoute,
+  ConfiguracoesContatoRoute: ConfiguracoesContatoRoute,
+  ConfiguracoesEmpresaRoute: ConfiguracoesEmpresaRoute,
+  ConfiguracoesEquipeRoute: ConfiguracoesEquipeRoute,
+  ConfiguracoesIntegracoesRoute: ConfiguracoesIntegracoesRoute,
+  ConfiguracoesLegaisRoute: ConfiguracoesLegaisRoute,
+  ConfiguracoesMarcaRoute: ConfiguracoesMarcaRoute,
+  ConfiguracoesPerfilRoute: ConfiguracoesPerfilRoute,
+  ConfiguracoesPlanoRoute: ConfiguracoesPlanoRoute,
+  ConfiguracoesRedesRoute: ConfiguracoesRedesRoute,
+  ConfiguracoesSiteRoute: ConfiguracoesSiteRoute,
+  ConfiguracoesIndexRoute: ConfiguracoesIndexRoute,
+}
+
+const ConfiguracoesRouteWithChildren = ConfiguracoesRoute._addFileChildren(
+  ConfiguracoesRouteChildren,
+)
+
+interface ImoveisRouteChildren {
+  ImoveisCadastrarRoute: typeof ImoveisCadastrarRoute
+}
+
+const ImoveisRouteChildren: ImoveisRouteChildren = {
+  ImoveisCadastrarRoute: ImoveisCadastrarRoute,
+}
+
+const ImoveisRouteWithChildren =
+  ImoveisRoute._addFileChildren(ImoveisRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AgendaRoute: AgendaRoute,
+  ConfiguracoesRoute: ConfiguracoesRouteWithChildren,
+  ContatosRoute: ContatosRoute,
+  ConteudoIaRoute: ConteudoIaRoute,
+  ContratosRoute: ContratosRoute,
+  DashboardRoute: DashboardRoute,
+  ImoveisRoute: ImoveisRouteWithChildren,
+  LeadsRoute: LeadsRoute,
+  LeadsInboxRoute: LeadsInboxRoute,
+  MeuSiteRoute: MeuSiteRoute,
+  NegociosRoute: NegociosRoute,
+  PortaisRoute: PortaisRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
