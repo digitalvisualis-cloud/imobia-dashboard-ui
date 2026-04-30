@@ -21,48 +21,54 @@ export const Route = createFileRoute("/dashboard")({
     ],
   }),
   component: DashboardPage,
+  ssr: false,
 });
 
 function DashboardPage() {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    const t = window.setTimeout(() => setLoading(false), 600);
+    const t = window.setTimeout(() => setLoading(false), 500);
     return () => window.clearTimeout(t);
   }, []);
+
+  if (loading) {
+    return (
+      <AppLayout>
+        <div className="space-y-6 p-4 md:p-8">
+          <DashboardSkeleton />
+        </div>
+      </AppLayout>
+    );
+  }
 
   return (
     <AppLayout>
       <div className="space-y-6 p-4 md:p-8">
-        {loading ? (
-          <DashboardSkeleton />
-        ) : (
-          <>
-            <PageHeader
-              eyebrow={`Olá, ${usuario.nome.split(" ")[0]}`}
-              title="Painel"
-              description="Esse é tu resumão do dia. Ações importantes ficam logo abaixo."
-            />
+        <PageHeader
+          eyebrow={`Olá, ${usuario.nome.split(" ")[0]}`}
+          title="Painel"
+          description="Esse é tu resumão do dia. Ações importantes ficam logo abaixo."
+        />
 
-            <AgenteInativoBanner />
+        <AgenteInativoBanner />
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <KpiCard icon={Building2} label="Imóveis ativos" value={kpis.imoveisAtivos.valor} delta={kpis.imoveisAtivos.delta} positivo={kpis.imoveisAtivos.positivo} />
-              <KpiCard icon={Users} label="Leads no funil" value={kpis.leadsFunil.valor} delta={kpis.leadsFunil.delta} positivo={kpis.leadsFunil.positivo} />
-              <KpiCard icon={CalendarDays} label="Visitas esta semana" value={kpis.visitasSemana.valor} delta={kpis.visitasSemana.delta} positivo={kpis.visitasSemana.positivo} />
-              <KpiCard icon={Sparkles} label="Posts gerados (30d)" value={kpis.postsGerados.valor} delta={kpis.postsGerados.delta} positivo={kpis.postsGerados.positivo} />
-            </div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <KpiCard icon={Building2} label="Imóveis ativos" value={kpis.imoveisAtivos.valor} delta={kpis.imoveisAtivos.delta} positivo={kpis.imoveisAtivos.positivo} />
+          <KpiCard icon={Users} label="Leads no funil" value={kpis.leadsFunil.valor} delta={kpis.leadsFunil.delta} positivo={kpis.leadsFunil.positivo} />
+          <KpiCard icon={CalendarDays} label="Visitas esta semana" value={kpis.visitasSemana.valor} delta={kpis.visitasSemana.delta} positivo={kpis.visitasSemana.positivo} />
+          <KpiCard icon={Sparkles} label="Posts gerados (30d)" value={kpis.postsGerados.valor} delta={kpis.postsGerados.delta} positivo={kpis.postsGerados.positivo} />
+        </div>
 
-            <LeadsLineChart />
+        <LeadsLineChart />
 
-            <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-              <ActivityFeed />
-              <UpcomingAppointments />
-            </div>
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+          <ActivityFeed />
+          <UpcomingAppointments />
+        </div>
 
-            <AgentPromoBanner />
-          </>
-        )}
+        <AgentPromoBanner />
       </div>
     </AppLayout>
   );
 }
+
