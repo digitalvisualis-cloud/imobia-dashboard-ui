@@ -36,7 +36,6 @@ import { Route as ConfiguracoesIntegracoesRouteImport } from './routes/configura
 import { Route as ConfiguracoesEquipeRouteImport } from './routes/configuracoes.equipe'
 import { Route as ConfiguracoesEmpresaRouteImport } from './routes/configuracoes.empresa'
 import { Route as ConfiguracoesContatoRouteImport } from './routes/configuracoes.contato'
-import { Route as ConfiguracoesAgenteIaRouteImport } from './routes/configuracoes.agente-ia'
 import { Route as ConteudoImovelIdRouteImport } from './routes/conteudo.imovel.$id'
 
 const PortaisRoute = PortaisRouteImport.update({
@@ -175,11 +174,6 @@ const ConfiguracoesContatoRoute = ConfiguracoesContatoRouteImport.update({
   path: '/contato',
   getParentRoute: () => ConfiguracoesRoute,
 } as any)
-const ConfiguracoesAgenteIaRoute = ConfiguracoesAgenteIaRouteImport.update({
-  id: '/agente-ia',
-  path: '/agente-ia',
-  getParentRoute: () => ConfiguracoesRoute,
-} as any)
 const ConteudoImovelIdRoute = ConteudoImovelIdRouteImport.update({
   id: '/conteudo/imovel/$id',
   path: '/conteudo/imovel/$id',
@@ -200,7 +194,6 @@ export interface FileRoutesByFullPath {
   '/meu-site': typeof MeuSiteRoute
   '/negocios': typeof NegociosRoute
   '/portais': typeof PortaisRoute
-  '/configuracoes/agente-ia': typeof ConfiguracoesAgenteIaRoute
   '/configuracoes/contato': typeof ConfiguracoesContatoRoute
   '/configuracoes/empresa': typeof ConfiguracoesEmpresaRoute
   '/configuracoes/equipe': typeof ConfiguracoesEquipeRoute
@@ -230,7 +223,6 @@ export interface FileRoutesByTo {
   '/meu-site': typeof MeuSiteRoute
   '/negocios': typeof NegociosRoute
   '/portais': typeof PortaisRoute
-  '/configuracoes/agente-ia': typeof ConfiguracoesAgenteIaRoute
   '/configuracoes/contato': typeof ConfiguracoesContatoRoute
   '/configuracoes/empresa': typeof ConfiguracoesEmpresaRoute
   '/configuracoes/equipe': typeof ConfiguracoesEquipeRoute
@@ -262,7 +254,6 @@ export interface FileRoutesById {
   '/meu-site': typeof MeuSiteRoute
   '/negocios': typeof NegociosRoute
   '/portais': typeof PortaisRoute
-  '/configuracoes/agente-ia': typeof ConfiguracoesAgenteIaRoute
   '/configuracoes/contato': typeof ConfiguracoesContatoRoute
   '/configuracoes/empresa': typeof ConfiguracoesEmpresaRoute
   '/configuracoes/equipe': typeof ConfiguracoesEquipeRoute
@@ -295,7 +286,6 @@ export interface FileRouteTypes {
     | '/meu-site'
     | '/negocios'
     | '/portais'
-    | '/configuracoes/agente-ia'
     | '/configuracoes/contato'
     | '/configuracoes/empresa'
     | '/configuracoes/equipe'
@@ -325,7 +315,6 @@ export interface FileRouteTypes {
     | '/meu-site'
     | '/negocios'
     | '/portais'
-    | '/configuracoes/agente-ia'
     | '/configuracoes/contato'
     | '/configuracoes/empresa'
     | '/configuracoes/equipe'
@@ -356,7 +345,6 @@ export interface FileRouteTypes {
     | '/meu-site'
     | '/negocios'
     | '/portais'
-    | '/configuracoes/agente-ia'
     | '/configuracoes/contato'
     | '/configuracoes/empresa'
     | '/configuracoes/equipe'
@@ -582,13 +570,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConfiguracoesContatoRouteImport
       parentRoute: typeof ConfiguracoesRoute
     }
-    '/configuracoes/agente-ia': {
-      id: '/configuracoes/agente-ia'
-      path: '/agente-ia'
-      fullPath: '/configuracoes/agente-ia'
-      preLoaderRoute: typeof ConfiguracoesAgenteIaRouteImport
-      parentRoute: typeof ConfiguracoesRoute
-    }
     '/conteudo/imovel/$id': {
       id: '/conteudo/imovel/$id'
       path: '/conteudo/imovel/$id'
@@ -600,7 +581,6 @@ declare module '@tanstack/react-router' {
 }
 
 interface ConfiguracoesRouteChildren {
-  ConfiguracoesAgenteIaRoute: typeof ConfiguracoesAgenteIaRoute
   ConfiguracoesContatoRoute: typeof ConfiguracoesContatoRoute
   ConfiguracoesEmpresaRoute: typeof ConfiguracoesEmpresaRoute
   ConfiguracoesEquipeRoute: typeof ConfiguracoesEquipeRoute
@@ -615,7 +595,6 @@ interface ConfiguracoesRouteChildren {
 }
 
 const ConfiguracoesRouteChildren: ConfiguracoesRouteChildren = {
-  ConfiguracoesAgenteIaRoute: ConfiguracoesAgenteIaRoute,
   ConfiguracoesContatoRoute: ConfiguracoesContatoRoute,
   ConfiguracoesEmpresaRoute: ConfiguracoesEmpresaRoute,
   ConfiguracoesEquipeRoute: ConfiguracoesEquipeRoute,

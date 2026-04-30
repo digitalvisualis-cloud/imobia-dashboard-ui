@@ -57,7 +57,7 @@ const sections: NavSection[] = [
   },
   {
     label: "Atendimento IA",
-    items: [{ to: "/configuracoes/agente-ia", label: "Agente IA", icon: Bot }],
+    items: [{ to: "/agente-ia", label: "Agente IA", icon: Bot }],
   },
   {
     label: "Financeiro",
