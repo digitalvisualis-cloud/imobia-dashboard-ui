@@ -49,13 +49,8 @@ function ConfigLayout() {
           </nav>
           <div className="my-3 border-t border-border" />
           <Link
-            to="/configuracoes/agente-ia"
-            className={cn(
-              "flex items-center justify-between rounded-md border-l-2 px-3 py-2 text-sm transition-colors",
-              path === "/configuracoes/agente-ia"
-                ? "border-primary bg-muted font-medium text-foreground"
-                : "border-transparent text-foreground/70 hover:bg-muted hover:text-foreground",
-            )}
+            to="/agente-ia"
+            className="flex items-center justify-between rounded-md border-l-2 border-transparent px-3 py-2 text-sm text-foreground/70 transition-colors hover:bg-muted hover:text-foreground"
           >
             <span className="inline-flex items-center gap-2">
               <Bot className="h-4 w-4 text-primary" />

@@ -20,6 +20,7 @@ import { Route as ContratosRouteImport } from './routes/contratos'
 import { Route as ConteudoIaRouteImport } from './routes/conteudo-ia'
 import { Route as ContatosRouteImport } from './routes/contatos'
 import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
+import { Route as AgenteIaRouteImport } from './routes/agente-ia'
 import { Route as AgendaRouteImport } from './routes/agenda'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConfiguracoesIndexRouteImport } from './routes/configuracoes.index'
@@ -36,7 +37,6 @@ import { Route as ConfiguracoesIntegracoesRouteImport } from './routes/configura
 import { Route as ConfiguracoesEquipeRouteImport } from './routes/configuracoes.equipe'
 import { Route as ConfiguracoesEmpresaRouteImport } from './routes/configuracoes.empresa'
 import { Route as ConfiguracoesContatoRouteImport } from './routes/configuracoes.contato'
-import { Route as ConfiguracoesAgenteIaRouteImport } from './routes/configuracoes.agente-ia'
 import { Route as ConteudoImovelIdRouteImport } from './routes/conteudo.imovel.$id'
 
 const PortaisRoute = PortaisRouteImport.update({
@@ -92,6 +92,11 @@ const ContatosRoute = ContatosRouteImport.update({
 const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
   id: '/configuracoes',
   path: '/configuracoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgenteIaRoute = AgenteIaRouteImport.update({
+  id: '/agente-ia',
+  path: '/agente-ia',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AgendaRoute = AgendaRouteImport.update({
@@ -175,11 +180,6 @@ const ConfiguracoesContatoRoute = ConfiguracoesContatoRouteImport.update({
   path: '/contato',
   getParentRoute: () => ConfiguracoesRoute,
 } as any)
-const ConfiguracoesAgenteIaRoute = ConfiguracoesAgenteIaRouteImport.update({
-  id: '/agente-ia',
-  path: '/agente-ia',
-  getParentRoute: () => ConfiguracoesRoute,
-} as any)
 const ConteudoImovelIdRoute = ConteudoImovelIdRouteImport.update({
   id: '/conteudo/imovel/$id',
   path: '/conteudo/imovel/$id',
@@ -189,6 +189,7 @@ const ConteudoImovelIdRoute = ConteudoImovelIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
+  '/agente-ia': typeof AgenteIaRoute
   '/configuracoes': typeof ConfiguracoesRouteWithChildren
   '/contatos': typeof ContatosRoute
   '/conteudo-ia': typeof ConteudoIaRoute
@@ -200,7 +201,6 @@ export interface FileRoutesByFullPath {
   '/meu-site': typeof MeuSiteRoute
   '/negocios': typeof NegociosRoute
   '/portais': typeof PortaisRoute
-  '/configuracoes/agente-ia': typeof ConfiguracoesAgenteIaRoute
   '/configuracoes/contato': typeof ConfiguracoesContatoRoute
   '/configuracoes/empresa': typeof ConfiguracoesEmpresaRoute
   '/configuracoes/equipe': typeof ConfiguracoesEquipeRoute
@@ -220,6 +220,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
+  '/agente-ia': typeof AgenteIaRoute
   '/contatos': typeof ContatosRoute
   '/conteudo-ia': typeof ConteudoIaRoute
   '/contratos': typeof ContratosRoute
@@ -230,7 +231,6 @@ export interface FileRoutesByTo {
   '/meu-site': typeof MeuSiteRoute
   '/negocios': typeof NegociosRoute
   '/portais': typeof PortaisRoute
-  '/configuracoes/agente-ia': typeof ConfiguracoesAgenteIaRoute
   '/configuracoes/contato': typeof ConfiguracoesContatoRoute
   '/configuracoes/empresa': typeof ConfiguracoesEmpresaRoute
   '/configuracoes/equipe': typeof ConfiguracoesEquipeRoute
@@ -251,6 +251,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
+  '/agente-ia': typeof AgenteIaRoute
   '/configuracoes': typeof ConfiguracoesRouteWithChildren
   '/contatos': typeof ContatosRoute
   '/conteudo-ia': typeof ConteudoIaRoute
@@ -262,7 +263,6 @@ export interface FileRoutesById {
   '/meu-site': typeof MeuSiteRoute
   '/negocios': typeof NegociosRoute
   '/portais': typeof PortaisRoute
-  '/configuracoes/agente-ia': typeof ConfiguracoesAgenteIaRoute
   '/configuracoes/contato': typeof ConfiguracoesContatoRoute
   '/configuracoes/empresa': typeof ConfiguracoesEmpresaRoute
   '/configuracoes/equipe': typeof ConfiguracoesEquipeRoute
@@ -284,6 +284,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/agenda'
+    | '/agente-ia'
     | '/configuracoes'
     | '/contatos'
     | '/conteudo-ia'
@@ -295,7 +296,6 @@ export interface FileRouteTypes {
     | '/meu-site'
     | '/negocios'
     | '/portais'
-    | '/configuracoes/agente-ia'
     | '/configuracoes/contato'
     | '/configuracoes/empresa'
     | '/configuracoes/equipe'
@@ -315,6 +315,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/agenda'
+    | '/agente-ia'
     | '/contatos'
     | '/conteudo-ia'
     | '/contratos'
@@ -325,7 +326,6 @@ export interface FileRouteTypes {
     | '/meu-site'
     | '/negocios'
     | '/portais'
-    | '/configuracoes/agente-ia'
     | '/configuracoes/contato'
     | '/configuracoes/empresa'
     | '/configuracoes/equipe'
@@ -345,6 +345,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/agenda'
+    | '/agente-ia'
     | '/configuracoes'
     | '/contatos'
     | '/conteudo-ia'
@@ -356,7 +357,6 @@ export interface FileRouteTypes {
     | '/meu-site'
     | '/negocios'
     | '/portais'
-    | '/configuracoes/agente-ia'
     | '/configuracoes/contato'
     | '/configuracoes/empresa'
     | '/configuracoes/equipe'
@@ -377,6 +377,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AgendaRoute: typeof AgendaRoute
+  AgenteIaRoute: typeof AgenteIaRoute
   ConfiguracoesRoute: typeof ConfiguracoesRouteWithChildren
   ContatosRoute: typeof ContatosRoute
   ConteudoIaRoute: typeof ConteudoIaRoute
@@ -468,6 +469,13 @@ declare module '@tanstack/react-router' {
       path: '/configuracoes'
       fullPath: '/configuracoes'
       preLoaderRoute: typeof ConfiguracoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agente-ia': {
+      id: '/agente-ia'
+      path: '/agente-ia'
+      fullPath: '/agente-ia'
+      preLoaderRoute: typeof AgenteIaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/agenda': {
@@ -582,13 +590,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConfiguracoesContatoRouteImport
       parentRoute: typeof ConfiguracoesRoute
     }
-    '/configuracoes/agente-ia': {
-      id: '/configuracoes/agente-ia'
-      path: '/agente-ia'
-      fullPath: '/configuracoes/agente-ia'
-      preLoaderRoute: typeof ConfiguracoesAgenteIaRouteImport
-      parentRoute: typeof ConfiguracoesRoute
-    }
     '/conteudo/imovel/$id': {
       id: '/conteudo/imovel/$id'
       path: '/conteudo/imovel/$id'
@@ -600,7 +601,6 @@ declare module '@tanstack/react-router' {
 }
 
 interface ConfiguracoesRouteChildren {
-  ConfiguracoesAgenteIaRoute: typeof ConfiguracoesAgenteIaRoute
   ConfiguracoesContatoRoute: typeof ConfiguracoesContatoRoute
   ConfiguracoesEmpresaRoute: typeof ConfiguracoesEmpresaRoute
   ConfiguracoesEquipeRoute: typeof ConfiguracoesEquipeRoute
@@ -615,7 +615,6 @@ interface ConfiguracoesRouteChildren {
 }
 
 const ConfiguracoesRouteChildren: ConfiguracoesRouteChildren = {
-  ConfiguracoesAgenteIaRoute: ConfiguracoesAgenteIaRoute,
   ConfiguracoesContatoRoute: ConfiguracoesContatoRoute,
   ConfiguracoesEmpresaRoute: ConfiguracoesEmpresaRoute,
   ConfiguracoesEquipeRoute: ConfiguracoesEquipeRoute,
@@ -659,6 +658,7 @@ const LeadsRouteWithChildren = LeadsRoute._addFileChildren(LeadsRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgendaRoute: AgendaRoute,
+  AgenteIaRoute: AgenteIaRoute,
   ConfiguracoesRoute: ConfiguracoesRouteWithChildren,
   ContatosRoute: ContatosRoute,
   ConteudoIaRoute: ConteudoIaRoute,
