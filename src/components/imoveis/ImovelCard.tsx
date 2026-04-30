@@ -1,4 +1,5 @@
 import { Pencil, Eye, Sparkles } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import type { Imovel } from "@/lib/types";
 import { formatBRL } from "@/lib/format";
 
@@ -23,7 +24,8 @@ export function ImovelCard({ imovel }: { imovel: Imovel }) {
   const sufixo = imovel.operacao === "aluguel" ? "/mês" : "";
 
   return (
-    <article className="group card-soft overflow-hidden">
+    <Link to="/imoveis/$id" params={{ id: imovel.id }} className="group card-soft block overflow-hidden">
+      <article>
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         <img
           src={imovel.foto}

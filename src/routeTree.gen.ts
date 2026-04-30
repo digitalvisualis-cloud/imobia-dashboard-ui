@@ -23,6 +23,7 @@ import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
 import { Route as AgendaRouteImport } from './routes/agenda'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConfiguracoesIndexRouteImport } from './routes/configuracoes.index'
+import { Route as LeadsIdRouteImport } from './routes/leads.$id'
 import { Route as ImoveisCadastrarRouteImport } from './routes/imoveis.cadastrar'
 import { Route as ImoveisIdRouteImport } from './routes/imoveis.$id'
 import { Route as ConfiguracoesSiteRouteImport } from './routes/configuracoes.site'
@@ -36,6 +37,7 @@ import { Route as ConfiguracoesEquipeRouteImport } from './routes/configuracoes.
 import { Route as ConfiguracoesEmpresaRouteImport } from './routes/configuracoes.empresa'
 import { Route as ConfiguracoesContatoRouteImport } from './routes/configuracoes.contato'
 import { Route as ConfiguracoesAgenteIaRouteImport } from './routes/configuracoes.agente-ia'
+import { Route as ConteudoImovelIdRouteImport } from './routes/conteudo.imovel.$id'
 
 const PortaisRoute = PortaisRouteImport.update({
   id: '/portais',
@@ -107,6 +109,11 @@ const ConfiguracoesIndexRoute = ConfiguracoesIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ConfiguracoesRoute,
 } as any)
+const LeadsIdRoute = LeadsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => LeadsRoute,
+} as any)
 const ImoveisCadastrarRoute = ImoveisCadastrarRouteImport.update({
   id: '/cadastrar',
   path: '/cadastrar',
@@ -173,6 +180,11 @@ const ConfiguracoesAgenteIaRoute = ConfiguracoesAgenteIaRouteImport.update({
   path: '/agente-ia',
   getParentRoute: () => ConfiguracoesRoute,
 } as any)
+const ConteudoImovelIdRoute = ConteudoImovelIdRouteImport.update({
+  id: '/conteudo/imovel/$id',
+  path: '/conteudo/imovel/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -183,7 +195,7 @@ export interface FileRoutesByFullPath {
   '/contratos': typeof ContratosRoute
   '/dashboard': typeof DashboardRoute
   '/imoveis': typeof ImoveisRouteWithChildren
-  '/leads': typeof LeadsRoute
+  '/leads': typeof LeadsRouteWithChildren
   '/leads-inbox': typeof LeadsInboxRoute
   '/meu-site': typeof MeuSiteRoute
   '/negocios': typeof NegociosRoute
@@ -201,7 +213,9 @@ export interface FileRoutesByFullPath {
   '/configuracoes/site': typeof ConfiguracoesSiteRoute
   '/imoveis/$id': typeof ImoveisIdRoute
   '/imoveis/cadastrar': typeof ImoveisCadastrarRoute
+  '/leads/$id': typeof LeadsIdRoute
   '/configuracoes/': typeof ConfiguracoesIndexRoute
+  '/conteudo/imovel/$id': typeof ConteudoImovelIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -211,7 +225,7 @@ export interface FileRoutesByTo {
   '/contratos': typeof ContratosRoute
   '/dashboard': typeof DashboardRoute
   '/imoveis': typeof ImoveisRouteWithChildren
-  '/leads': typeof LeadsRoute
+  '/leads': typeof LeadsRouteWithChildren
   '/leads-inbox': typeof LeadsInboxRoute
   '/meu-site': typeof MeuSiteRoute
   '/negocios': typeof NegociosRoute
@@ -229,7 +243,9 @@ export interface FileRoutesByTo {
   '/configuracoes/site': typeof ConfiguracoesSiteRoute
   '/imoveis/$id': typeof ImoveisIdRoute
   '/imoveis/cadastrar': typeof ImoveisCadastrarRoute
+  '/leads/$id': typeof LeadsIdRoute
   '/configuracoes': typeof ConfiguracoesIndexRoute
+  '/conteudo/imovel/$id': typeof ConteudoImovelIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -241,7 +257,7 @@ export interface FileRoutesById {
   '/contratos': typeof ContratosRoute
   '/dashboard': typeof DashboardRoute
   '/imoveis': typeof ImoveisRouteWithChildren
-  '/leads': typeof LeadsRoute
+  '/leads': typeof LeadsRouteWithChildren
   '/leads-inbox': typeof LeadsInboxRoute
   '/meu-site': typeof MeuSiteRoute
   '/negocios': typeof NegociosRoute
@@ -259,7 +275,9 @@ export interface FileRoutesById {
   '/configuracoes/site': typeof ConfiguracoesSiteRoute
   '/imoveis/$id': typeof ImoveisIdRoute
   '/imoveis/cadastrar': typeof ImoveisCadastrarRoute
+  '/leads/$id': typeof LeadsIdRoute
   '/configuracoes/': typeof ConfiguracoesIndexRoute
+  '/conteudo/imovel/$id': typeof ConteudoImovelIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -290,7 +308,9 @@ export interface FileRouteTypes {
     | '/configuracoes/site'
     | '/imoveis/$id'
     | '/imoveis/cadastrar'
+    | '/leads/$id'
     | '/configuracoes/'
+    | '/conteudo/imovel/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -318,7 +338,9 @@ export interface FileRouteTypes {
     | '/configuracoes/site'
     | '/imoveis/$id'
     | '/imoveis/cadastrar'
+    | '/leads/$id'
     | '/configuracoes'
+    | '/conteudo/imovel/$id'
   id:
     | '__root__'
     | '/'
@@ -347,7 +369,9 @@ export interface FileRouteTypes {
     | '/configuracoes/site'
     | '/imoveis/$id'
     | '/imoveis/cadastrar'
+    | '/leads/$id'
     | '/configuracoes/'
+    | '/conteudo/imovel/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -359,11 +383,12 @@ export interface RootRouteChildren {
   ContratosRoute: typeof ContratosRoute
   DashboardRoute: typeof DashboardRoute
   ImoveisRoute: typeof ImoveisRouteWithChildren
-  LeadsRoute: typeof LeadsRoute
+  LeadsRoute: typeof LeadsRouteWithChildren
   LeadsInboxRoute: typeof LeadsInboxRoute
   MeuSiteRoute: typeof MeuSiteRoute
   NegociosRoute: typeof NegociosRoute
   PortaisRoute: typeof PortaisRoute
+  ConteudoImovelIdRoute: typeof ConteudoImovelIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -466,6 +491,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConfiguracoesIndexRouteImport
       parentRoute: typeof ConfiguracoesRoute
     }
+    '/leads/$id': {
+      id: '/leads/$id'
+      path: '/$id'
+      fullPath: '/leads/$id'
+      preLoaderRoute: typeof LeadsIdRouteImport
+      parentRoute: typeof LeadsRoute
+    }
     '/imoveis/cadastrar': {
       id: '/imoveis/cadastrar'
       path: '/cadastrar'
@@ -557,6 +589,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConfiguracoesAgenteIaRouteImport
       parentRoute: typeof ConfiguracoesRoute
     }
+    '/conteudo/imovel/$id': {
+      id: '/conteudo/imovel/$id'
+      path: '/conteudo/imovel/$id'
+      fullPath: '/conteudo/imovel/$id'
+      preLoaderRoute: typeof ConteudoImovelIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -607,6 +646,16 @@ const ImoveisRouteChildren: ImoveisRouteChildren = {
 const ImoveisRouteWithChildren =
   ImoveisRoute._addFileChildren(ImoveisRouteChildren)
 
+interface LeadsRouteChildren {
+  LeadsIdRoute: typeof LeadsIdRoute
+}
+
+const LeadsRouteChildren: LeadsRouteChildren = {
+  LeadsIdRoute: LeadsIdRoute,
+}
+
+const LeadsRouteWithChildren = LeadsRoute._addFileChildren(LeadsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgendaRoute: AgendaRoute,
@@ -616,11 +665,12 @@ const rootRouteChildren: RootRouteChildren = {
   ContratosRoute: ContratosRoute,
   DashboardRoute: DashboardRoute,
   ImoveisRoute: ImoveisRouteWithChildren,
-  LeadsRoute: LeadsRoute,
+  LeadsRoute: LeadsRouteWithChildren,
   LeadsInboxRoute: LeadsInboxRoute,
   MeuSiteRoute: MeuSiteRoute,
   NegociosRoute: NegociosRoute,
   PortaisRoute: PortaisRoute,
+  ConteudoImovelIdRoute: ConteudoImovelIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,11 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { ImovelFilters } from "@/components/imoveis/ImovelFilters";
 import { ImovelCard } from "@/components/imoveis/ImovelCard";
 import { imoveis } from "@/data/imoveis";
-import { Plus } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { Building2, Plus } from "lucide-react";
+import { EmptyState } from "@/components/layout/EmptyState";
+import { useSearch } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/imoveis")({
   head: () => ({
@@ -14,17 +15,20 @@ export const Route = createFileRoute("/imoveis")({
       { name: "description", content: "Tua carteira de imóveis publicados, em rascunho ou pausados." },
     ],
   }),
+  validateSearch: (s: Record<string, unknown>) => ({ empty: s.empty === "1" || s.empty === 1 }),
   component: ImoveisPage,
 });
 
 function ImoveisPage() {
+  const { empty } = useSearch({ from: "/imoveis" });
+  const lista = empty ? [] : imoveis;
   return (
     <AppLayout>
       <div className="space-y-6 p-4 md:p-8">
         <PageHeader
           eyebrow="Portfólio"
           title="Imóveis"
-          description={`${imoveis.length} imóveis na tua carteira`}
+          description={`${lista.length} imóveis na tua carteira`}
           actions={
             <Link
               to="/imoveis/cadastrar"
@@ -35,13 +39,23 @@ function ImoveisPage() {
           }
         />
 
-        <ImovelFilters />
-
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {imoveis.map((imv) => (
-            <ImovelCard key={imv.id} imovel={imv} />
-          ))}
-        </div>
+        {lista.length === 0 ? (
+          <EmptyState
+            icon={Building2}
+            title="Cadastra teu primeiro imóvel"
+            description="Sua carteira tá vazia. Em 7 passos teu imóvel já entra no ar."
+            action={<Link to="/imoveis/cadastrar" className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">Cadastrar imóvel</Link>}
+          />
+        ) : (
+          <>
+            <ImovelFilters />
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {lista.map((imv) => (
+                <ImovelCard key={imv.id} imovel={imv} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </AppLayout>
   );
