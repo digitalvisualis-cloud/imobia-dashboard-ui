@@ -8,6 +8,7 @@ import { postsDoImovel } from "@/data/posts";
 import { TemplateCard, IACard } from "@/components/conteudo/TemplateCard";
 import { PostPreview } from "@/components/conteudo/PostPreview";
 import { CaptionCard } from "@/components/conteudo/CaptionCard";
+import { GerarPostModal } from "@/components/conteudo/GerarPostModal";
 import { ArrowLeft, Copy, Download, Library, Save, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { EmptyState } from "@/components/layout/EmptyState";
@@ -29,6 +30,7 @@ function MediaKitPage() {
   const imovel = getImovel(id);
   const [tab, setTab] = useState<"templates" | "export" | "biblioteca">("templates");
   const [variant, setVariant] = useState<Variant>("ia");
+  const [openGerar, setOpenGerar] = useState(false);
 
   if (!imovel) {
     return (
@@ -53,9 +55,17 @@ function MediaKitPage() {
           title={imovel.titulo}
           description={`${imovel.bairro} · ${imovel.cidade}/${imovel.uf} — escolhe um template, customiza e baixa.`}
           actions={
-            <Link to="/imoveis/$id" params={{ id: imovel.id }} className="inline-flex items-center gap-1.5 rounded-md border border-input bg-card px-3 py-1.5 text-sm font-medium hover:bg-muted">
-              <ArrowLeft className="h-3.5 w-3.5" /> Ver imóvel
-            </Link>
+            <div className="flex items-center gap-2">
+              <Link to="/imoveis/$id" params={{ id: imovel.id }} className="inline-flex items-center gap-1.5 rounded-md border border-input bg-card px-3 py-1.5 text-sm font-medium hover:bg-muted">
+                <ArrowLeft className="h-3.5 w-3.5" /> Ver imóvel
+              </Link>
+              <button
+                onClick={() => setOpenGerar(true)}
+                className="inline-flex items-center gap-1.5 rounded-md bg-gradient-to-r from-primary to-accent px-3 py-1.5 text-sm font-semibold text-white shadow-sm transition-transform hover:scale-[1.02]"
+              >
+                <Sparkles className="h-3.5 w-3.5" /> Gerar novo post
+              </button>
+            </div>
           }
         />
 
@@ -142,6 +152,7 @@ function MediaKitPage() {
           )
         )}
       </div>
+      <GerarPostModal open={openGerar} onClose={() => setOpenGerar(false)} imovelId={imovel.id} />
     </AppLayout>
   );
 }
