@@ -80,7 +80,9 @@ function MediaKitPage() {
     );
   }
 
-  const posts = postsDoImovel(imovel.id);
+  // re-render quando novos posts forem gerados pelo modal
+  useSyncExternalStore(subscribePostsGerados, () => postsGeradosDoImovel(imovel.id).length, () => 0);
+  const posts = [...postsGeradosDoImovel(imovel.id), ...postsDoImovel(imovel.id)];
 
   async function baixarPost(postId: string) {
     const node = previewRefs.current[postId];
