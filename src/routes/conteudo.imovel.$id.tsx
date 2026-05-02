@@ -55,12 +55,19 @@ function MediaKitPage() {
   const imovel = getImovel(id);
   const [openGerar, setOpenGerar] = useState(false);
   const [tab, setTab] = useState<CustomTab>(null);
-  const [corPrincipal, setCorPrincipal] = useState("#717BBC");
-  const [corSecundaria, setCorSecundaria] = useState("#FFFFFF");
-  const [corTexto, setCorTexto] = useState("#0F172A");
-  const [fonte, setFonte] = useState("Inter");
   const [baixandoId, setBaixandoId] = useState<string | null>(null);
   const previewRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  useSyncExternalStore(
+    subscribePostsGerados,
+    () => (imovel ? postsGeradosDoImovel(imovel.id).length : 0),
+    () => 0,
+  );
+  useSyncExternalStore(
+    subscribeCustom,
+    () => (imovel ? JSON.stringify(getCustom(imovel.id)) : ""),
+    () => "",
+  );
 
   if (!imovel) {
     return (
@@ -81,8 +88,16 @@ function MediaKitPage() {
     );
   }
 
-  // re-render quando novos posts forem gerados pelo modal
-  useSyncExternalStore(subscribePostsGerados, () => postsGeradosDoImovel(imovel.id).length, () => 0);
+  const c = getCustom(imovel.id);
+  const corPrincipal = c.corPrincipal!;
+  const corSecundaria = c.corSecundaria!;
+  const corTexto = c.corTexto!;
+  const fonte = c.fonte!;
+  const setCorPrincipal = (v: string) => setCustom(imovel.id, { corPrincipal: v });
+  const setCorSecundaria = (v: string) => setCustom(imovel.id, { corSecundaria: v });
+  const setCorTexto = (v: string) => setCustom(imovel.id, { corTexto: v });
+  const setFonte = (v: string) => setCustom(imovel.id, { fonte: v });
+
   const posts = [...postsGeradosDoImovel(imovel.id), ...postsDoImovel(imovel.id)];
 
   async function baixarPost(postId: string) {
