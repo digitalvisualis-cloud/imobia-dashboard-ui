@@ -1,6 +1,5 @@
 import type { Imovel } from "@/lib/types";
 import { Bed, Bath, Car, Maximize2, MapPin } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 export type TemplateVariant =
   | "ia"
