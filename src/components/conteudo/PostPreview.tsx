@@ -22,6 +22,14 @@ export type Customizacao = {
   logoUrl?: string | null;
 };
 
+type CustomResolvido = {
+  principal: string;
+  secundaria: string;
+  texto: string;
+  fonte: string;
+  logoUrl: string | null;
+};
+
 export function PostPreview({
   imovel,
   variant,
@@ -73,7 +81,7 @@ function TemplateBody({
 }: {
   imovel: Imovel;
   variant: TemplateVariant;
-  c: Required<Customizacao>;
+  c: CustomResolvido;
   preco: string;
   labelPreco: string;
   sufixoPreco: string;
