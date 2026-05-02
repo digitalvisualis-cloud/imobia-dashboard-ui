@@ -59,10 +59,22 @@ export interface Contrato {
   observacoes?: string;
 }
 
+export type TemplatePost =
+  | "ia"
+  | "clean"
+  | "borda"
+  | "premium"
+  | "minimal"
+  | "magazine"
+  | "split"
+  | "dark"
+  | "tag"
+  | "polaroid";
+
 export interface PostMidia {
   id: string;
   imovelId: string;
-  template: "ia" | "clean" | "borda" | "premium";
+  template: TemplatePost;
   porIA: boolean;
   legenda: string;
   dataIso: string;

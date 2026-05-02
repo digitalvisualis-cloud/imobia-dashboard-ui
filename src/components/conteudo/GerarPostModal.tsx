@@ -4,7 +4,8 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
 import { imoveis } from "@/data/imoveis";
-import { gerarPostsParaImovel } from "@/data/postsGerados";
+import { gerarPostParaImovel } from "@/data/postsGerados";
+import { PostPreview, type TemplateVariant } from "./PostPreview";
 import type { Imovel } from "@/lib/types";
 
 export type FormatoPost = {
@@ -23,6 +24,19 @@ const FORMATOS: FormatoPost[] = [
   { id: "fb-post", rede: "facebook", nome: "Post do Facebook (quadrado)", dimensao: "1080x1080" },
 ];
 
+const TEMPLATES: { id: TemplateVariant; nome: string; descricao: string }[] = [
+  { id: "ia", nome: "IA Vibrante", descricao: "Gradiente colorido sobre foto" },
+  { id: "clean", nome: "Clean", descricao: "Card branco minimalista" },
+  { id: "borda", nome: "Moldura", descricao: "Borda com faixa de preço" },
+  { id: "premium", nome: "Premium", descricao: "Sofisticado e escuro" },
+  { id: "minimal", nome: "Minimal", descricao: "Foto cheia + tag preço" },
+  { id: "magazine", nome: "Magazine", descricao: "Estilo editorial" },
+  { id: "split", nome: "Split", descricao: "Metade foto, metade cor" },
+  { id: "dark", nome: "Dark Mode", descricao: "Fundo escuro elegante" },
+  { id: "tag", nome: "Etiqueta", descricao: "Tag diagonal de venda" },
+  { id: "polaroid", nome: "Polaroid", descricao: "Vintage com moldura" },
+];
+
 function RedeIcon({ rede }: { rede: FormatoPost["rede"] }) {
   if (rede === "instagram") {
     return (
@@ -38,6 +52,8 @@ function RedeIcon({ rede }: { rede: FormatoPost["rede"] }) {
   );
 }
 
+type Step = "imovel" | "formato" | "template";
+
 export function GerarPostModal({
   open,
   onClose,
@@ -47,9 +63,10 @@ export function GerarPostModal({
   onClose: () => void;
   imovelId?: string;
 }) {
-  const [step, setStep] = useState<"imovel" | "formato">(imovelIdProp ? "formato" : "imovel");
+  const [step, setStep] = useState<Step>(imovelIdProp ? "formato" : "imovel");
   const [imovelId, setImovelId] = useState<string | undefined>(imovelIdProp);
-  const [selected, setSelected] = useState<string>("ig-story");
+  const [formato, setFormato] = useState<string>("ig-story");
+  const [templateSel, setTemplateSel] = useState<TemplateVariant | null>(null);
   const [loading, setLoading] = useState(false);
   const [busca, setBusca] = useState("");
   const navigate = useNavigate();
@@ -67,26 +84,29 @@ export function GerarPostModal({
     );
   }, [busca]);
 
+  const imovelAtual = imovelId ? imoveis.find((i) => i.id === imovelId) : undefined;
+
   if (!open) return null;
 
   function close() {
     setStep(imovelIdProp ? "formato" : "imovel");
     setImovelId(imovelIdProp);
+    setTemplateSel(null);
     setBusca("");
     onClose();
   }
 
   function gerar() {
-    if (!imovelId) return;
+    if (!imovelId || !templateSel) return;
     setLoading(true);
-    const fmt = FORMATOS.find((f) => f.id === selected);
+    const fmt = FORMATOS.find((f) => f.id === formato);
     setTimeout(() => {
-      gerarPostsParaImovel(imovelId, fmt?.nome ?? "Post");
+      gerarPostParaImovel(imovelId, templateSel, fmt?.nome ?? "Post");
       setLoading(false);
-      toast.success(`3 previews gerados pela IA`);
+      toast.success("Post gerado pela IA");
       close();
       navigate({ to: "/conteudo/imovel/$id", params: { id: imovelId } });
-    }, 1100);
+    }, 900);
   }
 
   return (
@@ -95,7 +115,7 @@ export function GerarPostModal({
       onClick={close}
     >
       <div
-        className="relative w-full max-w-2xl overflow-hidden rounded-2xl bg-background shadow-2xl animate-in zoom-in-95"
+        className="relative w-full max-w-3xl overflow-hidden rounded-2xl bg-background shadow-2xl animate-in zoom-in-95"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -109,9 +129,7 @@ export function GerarPostModal({
         {step === "imovel" && (
           <>
             <div className="space-y-1.5 p-6 pb-4">
-              <h2 className="font-display text-xl font-bold tracking-tight">
-                Escolhe o imóvel
-              </h2>
+              <h2 className="font-display text-xl font-bold tracking-tight">Escolhe o imóvel</h2>
               <p className="text-sm text-muted-foreground">
                 Seleciona qual imóvel da tua carteira vai virar conteúdo.
               </p>
@@ -129,49 +147,32 @@ export function GerarPostModal({
 
             <div className="grid max-h-[55vh] grid-cols-1 gap-2 overflow-y-auto px-6 pb-4">
               {lista.length === 0 && (
-                <p className="py-6 text-center text-sm text-muted-foreground">
-                  Nenhum imóvel encontrado.
-                </p>
+                <p className="py-6 text-center text-sm text-muted-foreground">Nenhum imóvel encontrado.</p>
               )}
-              {lista.map((imv) => {
-                const active = imovelId === imv.id;
-                return (
-                  <button
-                    key={imv.id}
-                    type="button"
-                    onClick={() => {
-                      setImovelId(imv.id);
-                      setStep("formato");
-                    }}
-                    className={cn(
-                      "flex items-center gap-3 rounded-xl border bg-card p-3 text-left transition-all hover:border-primary/50",
-                      active ? "border-primary bg-primary/5" : "border-border",
-                    )}
-                  >
-                    <img
-                      src={imv.foto}
-                      alt={imv.titulo}
-                      className="h-14 w-14 flex-shrink-0 rounded-md object-cover"
-                    />
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] text-muted-foreground">{imv.codigo}</span>
-                      </div>
-                      <div className="truncate text-sm font-semibold">{imv.titulo}</div>
-                      <div className="truncate text-xs text-muted-foreground">
-                        {imv.bairro} · {imv.cidade}/{imv.uf}
-                      </div>
+              {lista.map((imv) => (
+                <button
+                  key={imv.id}
+                  type="button"
+                  onClick={() => {
+                    setImovelId(imv.id);
+                    setStep("formato");
+                  }}
+                  className="flex items-center gap-3 rounded-xl border border-border bg-card p-3 text-left transition-all hover:border-primary/50"
+                >
+                  <img src={imv.foto} alt={imv.titulo} className="h-14 w-14 flex-shrink-0 rounded-md object-cover" />
+                  <div className="min-w-0 flex-1">
+                    <span className="font-mono text-[10px] text-muted-foreground">{imv.codigo}</span>
+                    <div className="truncate text-sm font-semibold">{imv.titulo}</div>
+                    <div className="truncate text-xs text-muted-foreground">
+                      {imv.bairro} · {imv.cidade}/{imv.uf}
                     </div>
-                  </button>
-                );
-              })}
+                  </div>
+                </button>
+              ))}
             </div>
 
             <div className="flex items-center justify-end gap-3 border-t border-border bg-muted/30 px-6 py-4">
-              <button
-                onClick={close}
-                className="rounded-md border border-input bg-card px-4 py-2 text-sm font-medium hover:bg-muted"
-              >
+              <button onClick={close} className="rounded-md border border-input bg-card px-4 py-2 text-sm font-medium hover:bg-muted">
                 Cancelar
               </button>
             </div>
@@ -189,22 +190,18 @@ export function GerarPostModal({
                   <ArrowLeft className="h-3 w-3" /> Trocar imóvel
                 </button>
               )}
-              <h2 className="font-display text-xl font-bold tracking-tight">
-                Crie posts para as redes sociais em segundos com IA
-              </h2>
-              <p className="text-sm text-muted-foreground">
-                Gere conteúdo estático e formato carrossel para Instagram, Facebook e LinkedIn.
-              </p>
+              <h2 className="font-display text-xl font-bold tracking-tight">Escolhe o formato</h2>
+              <p className="text-sm text-muted-foreground">Onde esse post vai ser publicado?</p>
             </div>
 
             <div className="grid max-h-[55vh] grid-cols-1 gap-3 overflow-y-auto px-6 pb-4 sm:grid-cols-2">
               {FORMATOS.map((f) => {
-                const active = selected === f.id;
+                const active = formato === f.id;
                 return (
                   <button
                     key={f.id}
                     type="button"
-                    onClick={() => setSelected(f.id)}
+                    onClick={() => setFormato(f.id)}
                     className={cn(
                       "group relative flex items-start gap-3 rounded-xl border bg-card p-4 text-left transition-all hover:border-primary/50",
                       active ? "border-primary bg-primary/5 ring-2 ring-primary/30" : "border-border",
@@ -229,19 +226,75 @@ export function GerarPostModal({
             </div>
 
             <div className="flex items-center justify-between gap-3 border-t border-border bg-muted/30 px-6 py-4">
+              <button onClick={close} className="rounded-md border border-input bg-card px-4 py-2 text-sm font-medium hover:bg-muted">
+                Cancelar
+              </button>
               <button
-                onClick={close}
-                className="rounded-md border border-input bg-card px-4 py-2 text-sm font-medium hover:bg-muted"
+                onClick={() => setStep("template")}
+                className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground"
               >
+                Próximo <ArrowLeft className="h-3 w-3 rotate-180" />
+              </button>
+            </div>
+          </>
+        )}
+
+        {step === "template" && imovelAtual && (
+          <>
+            <div className="space-y-1.5 p-6 pb-4">
+              <button
+                onClick={() => setStep("formato")}
+                className="mb-1 inline-flex items-center gap-1 text-xs font-medium text-muted-foreground hover:text-foreground"
+              >
+                <ArrowLeft className="h-3 w-3" /> Voltar pro formato
+              </button>
+              <h2 className="font-display text-xl font-bold tracking-tight">Escolhe um template</h2>
+              <p className="text-sm text-muted-foreground">
+                Selecione o estilo visual. Você poderá personalizar cores, fonte e logo depois.
+              </p>
+            </div>
+
+            <div className="grid max-h-[55vh] grid-cols-2 gap-3 overflow-y-auto px-6 pb-4 sm:grid-cols-3 md:grid-cols-4">
+              {TEMPLATES.map((t) => {
+                const active = templateSel === t.id;
+                return (
+                  <button
+                    key={t.id}
+                    type="button"
+                    onClick={() => setTemplateSel(t.id)}
+                    className={cn(
+                      "relative flex flex-col items-center gap-2 rounded-xl border bg-card p-2 text-left transition-all hover:border-primary/50",
+                      active ? "border-primary bg-primary/5 ring-2 ring-primary/30" : "border-border",
+                    )}
+                  >
+                    <div className="overflow-hidden rounded-md">
+                      <PostPreview imovel={imovelAtual} variant={t.id} scale={0.4} />
+                    </div>
+                    <div className="w-full px-1">
+                      <div className="text-xs font-semibold leading-tight">{t.nome}</div>
+                      <div className="truncate text-[10px] text-muted-foreground">{t.descricao}</div>
+                    </div>
+                    {active && (
+                      <span className="absolute right-2 top-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                        <Check className="h-3 w-3" />
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="flex items-center justify-between gap-3 border-t border-border bg-muted/30 px-6 py-4">
+              <button onClick={close} className="rounded-md border border-input bg-card px-4 py-2 text-sm font-medium hover:bg-muted">
                 Cancelar
               </button>
               <button
                 onClick={gerar}
-                disabled={loading}
-                className="inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-primary to-accent px-5 py-2 text-sm font-semibold text-white shadow-sm transition-transform hover:scale-[1.02] disabled:opacity-70"
+                disabled={loading || !templateSel}
+                className="inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-primary to-accent px-5 py-2 text-sm font-semibold text-white shadow-sm transition-transform hover:scale-[1.02] disabled:opacity-60"
               >
                 {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
-                {loading ? "Gerando..." : "Gerar com IA"}
+                {loading ? "Gerando..." : "Gerar post"}
               </button>
             </div>
           </>

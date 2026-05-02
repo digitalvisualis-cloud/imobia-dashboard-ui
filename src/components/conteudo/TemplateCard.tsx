@@ -1,11 +1,9 @@
 import { cn } from "@/lib/utils";
 import { Sparkles } from "lucide-react";
 import type { Imovel } from "@/lib/types";
-import { PostPreview } from "./PostPreview";
+import { PostPreview, type TemplateVariant } from "./PostPreview";
 
-type Variant = "ia" | "clean" | "borda" | "premium";
-
-export function TemplateCard({ imovel, variant, label, onSelect, selected }: { imovel: Imovel; variant: Variant; label: string; onSelect: () => void; selected?: boolean }) {
+export function TemplateCard({ imovel, variant, label, onSelect, selected }: { imovel: Imovel; variant: TemplateVariant; label: string; onSelect: () => void; selected?: boolean }) {
   return (
     <button
       type="button"
