@@ -55,9 +55,17 @@ function MediaKitPage() {
           title={imovel.titulo}
           description={`${imovel.bairro} · ${imovel.cidade}/${imovel.uf} — escolhe um template, customiza e baixa.`}
           actions={
-            <Link to="/imoveis/$id" params={{ id: imovel.id }} className="inline-flex items-center gap-1.5 rounded-md border border-input bg-card px-3 py-1.5 text-sm font-medium hover:bg-muted">
-              <ArrowLeft className="h-3.5 w-3.5" /> Ver imóvel
-            </Link>
+            <div className="flex items-center gap-2">
+              <Link to="/imoveis/$id" params={{ id: imovel.id }} className="inline-flex items-center gap-1.5 rounded-md border border-input bg-card px-3 py-1.5 text-sm font-medium hover:bg-muted">
+                <ArrowLeft className="h-3.5 w-3.5" /> Ver imóvel
+              </Link>
+              <button
+                onClick={() => setOpenGerar(true)}
+                className="inline-flex items-center gap-1.5 rounded-md bg-gradient-to-r from-primary to-accent px-3 py-1.5 text-sm font-semibold text-white shadow-sm transition-transform hover:scale-[1.02]"
+              >
+                <Sparkles className="h-3.5 w-3.5" /> Gerar novo post
+              </button>
+            </div>
           }
         />
 
