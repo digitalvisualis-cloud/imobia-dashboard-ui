@@ -52,7 +52,7 @@ export function PostPreview({
 
   return (
     <div
-      className="relative overflow-hidden rounded-lg shadow-xl"
+      className="post-preview-shell relative overflow-hidden rounded-lg shadow-xl"
       style={{
         width: w * scale,
         height: h * scale,
@@ -61,6 +61,7 @@ export function PostPreview({
       }}
     >
       <div
+        className="h-full w-full"
         style={{
           transform: `scale(${scale})`,
           transformOrigin: "top left",
