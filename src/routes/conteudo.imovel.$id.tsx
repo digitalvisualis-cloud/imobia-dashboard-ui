@@ -1,10 +1,11 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useSyncExternalStore } from "react";
 import { toPng } from "html-to-image";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { getImovel } from "@/data/imoveis";
 import { postsDoImovel } from "@/data/posts";
+import { postsGeradosDoImovel, subscribePostsGerados } from "@/data/postsGerados";
 import { PostPreview } from "@/components/conteudo/PostPreview";
 import { GerarPostModal } from "@/components/conteudo/GerarPostModal";
 import {
@@ -79,7 +80,9 @@ function MediaKitPage() {
     );
   }
 
-  const posts = postsDoImovel(imovel.id);
+  // re-render quando novos posts forem gerados pelo modal
+  useSyncExternalStore(subscribePostsGerados, () => postsGeradosDoImovel(imovel.id).length, () => 0);
+  const posts = [...postsGeradosDoImovel(imovel.id), ...postsDoImovel(imovel.id)];
 
   async function baixarPost(postId: string) {
     const node = previewRefs.current[postId];
