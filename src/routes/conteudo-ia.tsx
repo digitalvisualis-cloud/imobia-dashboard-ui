@@ -46,7 +46,7 @@ function ConteudoIAPage() {
           ))}
         </div>
       </div>
-      <GerarPostModal open={open} onClose={() => setOpen(false)} imovelId={imoveis[0]?.id} />
+      <GerarPostModal open={open} onClose={() => setOpen(false)} />
     </AppLayout>
   );
 }
