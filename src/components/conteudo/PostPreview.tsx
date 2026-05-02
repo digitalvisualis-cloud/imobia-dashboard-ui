@@ -53,7 +53,12 @@ export function PostPreview({
   return (
     <div
       className="relative overflow-hidden rounded-lg shadow-xl"
-      style={{ width: w * scale, height: h * scale, fontFamily: c.fonte }}
+      style={{
+        width: w * scale,
+        height: h * scale,
+        fontFamily: c.fonte,
+        color: c.texto,
+      }}
     >
       <div
         style={{
@@ -62,6 +67,7 @@ export function PostPreview({
           width: w,
           height: h,
           fontFamily: c.fonte,
+          color: c.texto,
         }}
       >
         <TemplateBody imovel={imovel} variant={variant} c={c} />
@@ -91,9 +97,9 @@ function TemplateBody({
   const Logo = () =>
     c.logoUrl ? <img src={c.logoUrl} alt="logo" className="h-6 w-auto object-contain" /> : null;
 
-  // Stats sempre herdam currentColor — quem chama define cor pelo wrapper
+  // Stats herdam fonte e cor do wrapper (currentColor)
   const Stats = () => (
-    <div className="flex items-center gap-3" style={{ fontFamily: c.fonte }}>
+    <div className="flex items-center gap-3">
       <Specs icon={<Maximize2 className="h-3.5 w-3.5" />} value={`${imovel.area}m²`} />
       {imovel.quartos > 0 && <Specs icon={<Bed className="h-3.5 w-3.5" />} value={String(imovel.quartos)} />}
       {imovel.banheiros > 0 && <Specs icon={<Bath className="h-3.5 w-3.5" />} value={String(imovel.banheiros)} />}
@@ -101,10 +107,16 @@ function TemplateBody({
     </div>
   );
 
-  // 1. IA — gradiente em cima da foto usando cor PRINCIPAL; textos no overlay = corTexto invertido (branco fica difícil de ler em cor clara, então usamos secundária como cor do texto sobre o gradiente)
+  // Convenção definitiva:
+  // - corPrincipal => destaques/faixas/badges/preço/accents
+  // - corSecundaria => superfícies/fundos de cards
+  // - corTexto => TODO o texto, sempre. O usuário escolhe a cor que combina com o template.
+  // - fonte => herdada via wrapper (font-family no container raiz)
+
+  // 1. IA — gradiente principal sobre foto, textos em corTexto
   if (variant === "ia") {
     return (
-      <div className="relative h-full w-full" style={{ fontFamily: c.fonte, color: c.secundaria }}>
+      <div className="relative h-full w-full" style={{ color: c.texto }}>
         <img src={img} alt="" className="absolute inset-0 h-full w-full object-cover" />
         <div
           className="absolute inset-0"
@@ -129,10 +141,10 @@ function TemplateBody({
     );
   }
 
-  // 2. Clean — card secundária embaixo, preço em principal, demais textos em corTexto
+  // 2. Clean — card secundária embaixo, preço em principal, demais em corTexto
   if (variant === "clean") {
     return (
-      <div className="relative h-full w-full" style={{ fontFamily: c.fonte }}>
+      <div className="relative h-full w-full">
         <img src={img} alt="" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute right-3 top-3"><Logo /></div>
         <div
@@ -154,14 +166,14 @@ function TemplateBody({
     );
   }
 
-  // 3. Borda — moldura secundária, faixa principal com texto secundária
+  // 3. Borda — moldura secundária, faixa principal com texto em corTexto
   if (variant === "borda") {
     return (
-      <div className="relative h-full w-full" style={{ backgroundColor: c.secundaria, fontFamily: c.fonte }}>
+      <div className="relative h-full w-full" style={{ backgroundColor: c.secundaria, color: c.texto }}>
         <img src={img} alt="" className="absolute inset-3 h-[calc(100%-24px)] w-[calc(100%-24px)] object-cover" />
         <div
           className="absolute inset-x-3 bottom-3 px-4 py-3"
-          style={{ backgroundColor: c.principal, color: c.secundaria }}
+          style={{ backgroundColor: c.principal, color: c.texto }}
         >
           <div className="flex items-center justify-between">
             <div>
@@ -176,10 +188,10 @@ function TemplateBody({
     );
   }
 
-  // 4. Premium — overlay escuro elegante, accent = principal, textos corTexto sobre área clara (mas aqui é tudo overlay escuro → usamos secundária pra contraste)
+  // 4. Premium — overlay escuro sobre foto, accent principal, texto em corTexto
   if (variant === "premium") {
     return (
-      <div className="relative h-full w-full" style={{ fontFamily: c.fonte, color: c.secundaria }}>
+      <div className="relative h-full w-full" style={{ color: c.texto }}>
         <img src={img} alt="" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
         <div className="absolute right-4 top-4"><Logo /></div>
@@ -199,7 +211,7 @@ function TemplateBody({
             <Stats />
             <div className="text-base font-bold" style={{ color: c.principal }}>
               {preco}
-              <span className="text-[10px]" style={{ color: c.secundaria }}>{sufixoPreco}</span>
+              <span className="text-[10px]" style={{ color: c.texto }}>{sufixoPreco}</span>
             </div>
           </div>
         </div>
@@ -207,14 +219,14 @@ function TemplateBody({
     );
   }
 
-  // 5. Minimal — fundo secundária, badge principal, textos corTexto
+  // 5. Minimal — fundo secundária, badge principal, textos em corTexto
   if (variant === "minimal") {
     return (
-      <div className="relative h-full w-full" style={{ backgroundColor: c.secundaria, fontFamily: c.fonte, color: c.texto }}>
+      <div className="relative h-full w-full" style={{ backgroundColor: c.secundaria, color: c.texto }}>
         <img src={img} alt="" className="absolute inset-0 h-3/4 w-full object-cover" />
         <div
           className="absolute right-3 top-3 rounded-full px-3 py-1 text-xs font-bold"
-          style={{ backgroundColor: c.principal, color: c.secundaria }}
+          style={{ backgroundColor: c.principal, color: c.texto }}
         >
           {preco}
         </div>
@@ -229,12 +241,12 @@ function TemplateBody({
     );
   }
 
-  // 6. Magazine — fundo secundária, eyebrow + preço em principal, demais corTexto
+  // 6. Magazine — fundo secundária, eyebrow + preço em principal, demais em corTexto
   if (variant === "magazine") {
     return (
       <div
         className="relative h-full w-full"
-        style={{ backgroundColor: c.secundaria, color: c.texto, fontFamily: c.fonte }}
+        style={{ backgroundColor: c.secundaria, color: c.texto }}
       >
         <img src={img} alt="" className="absolute inset-x-0 top-0 h-3/5 w-full object-cover" />
         <div className="absolute inset-x-0 bottom-0 h-2/5 p-4">
@@ -253,14 +265,14 @@ function TemplateBody({
     );
   }
 
-  // 7. Split — metade foto, metade cor PRINCIPAL com texto SECUNDÁRIA (clássico 2-cores)
+  // 7. Split — metade foto, metade cor PRINCIPAL com texto em corTexto
   if (variant === "split") {
     return (
-      <div className="relative grid h-full w-full grid-cols-2" style={{ fontFamily: c.fonte }}>
+      <div className="relative grid h-full w-full grid-cols-2">
         <img src={img} alt="" className="h-full w-full object-cover" />
         <div
           className="flex flex-col justify-between p-4"
-          style={{ backgroundColor: c.principal, color: c.secundaria }}
+          style={{ backgroundColor: c.principal, color: c.texto }}
         >
           <div>
             <Logo />
@@ -270,7 +282,7 @@ function TemplateBody({
           </div>
           <div>
             <Stats />
-            <div className="mt-3 border-t pt-2" style={{ borderColor: c.secundaria, opacity: 1 }}>
+            <div className="mt-3 border-t pt-2" style={{ borderColor: c.texto, opacity: 0.6 }}>
               <div className="text-[9px] uppercase opacity-80">{labelPreco}</div>
               <div className="text-lg font-bold">
                 {preco}
@@ -283,11 +295,10 @@ function TemplateBody({
     );
   }
 
-  // 8. Dark — fundo principal escuro? Não — fundo = corTexto (escuro) é confuso.
-  // Convenção: fundo = principal (que o usuário escolheu), textos = secundária, accent = secundária com opacidade
+  // 8. Dark — fundo principal, textos em corTexto
   if (variant === "dark") {
     return (
-      <div className="relative h-full w-full p-4" style={{ backgroundColor: c.principal, color: c.secundaria, fontFamily: c.fonte }}>
+      <div className="relative h-full w-full p-4" style={{ backgroundColor: c.principal, color: c.texto }}>
         <img src={img} alt="" className="h-2/3 w-full rounded-md object-cover" />
         <div className="mt-3 flex items-start justify-between">
           <div>
@@ -304,18 +315,21 @@ function TemplateBody({
     );
   }
 
-  // 9. Tag — etiqueta diagonal em cor principal com texto secundária; legenda inferior em escuro com texto secundária
+  // 9. Tag — etiqueta principal sobre foto + faixa escura inferior com texto em corTexto
   if (variant === "tag") {
     return (
-      <div className="relative h-full w-full" style={{ fontFamily: c.fonte, color: c.secundaria }}>
+      <div className="relative h-full w-full" style={{ color: c.texto }}>
         <img src={img} alt="" className="absolute inset-0 h-full w-full object-cover" />
         <div
           className="absolute -left-12 top-6 w-48 rotate-[-35deg] py-1.5 text-center text-xs font-bold shadow-lg"
-          style={{ backgroundColor: c.principal, color: c.secundaria }}
+          style={{ backgroundColor: c.principal, color: c.texto }}
         >
           {imovel.operacao === "aluguel" ? "PARA ALUGAR" : "À VENDA"}
         </div>
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-4">
+        <div
+          className="absolute inset-x-0 bottom-0 p-4"
+          style={{ background: `linear-gradient(to top, ${c.secundaria}, transparent)`, color: c.texto }}
+        >
           <div className="text-lg font-bold">{imovel.titulo}</div>
           <div className="text-xs opacity-80">{imovel.bairro} · {imovel.cidade}</div>
           <div className="mt-2 flex items-end justify-between">
@@ -332,7 +346,7 @@ function TemplateBody({
     return (
       <div
         className="relative h-full w-full p-5 pb-12"
-        style={{ backgroundColor: c.secundaria, color: c.texto, fontFamily: c.fonte }}
+        style={{ backgroundColor: c.secundaria, color: c.texto }}
       >
         <img src={img} alt="" className="h-[70%] w-full object-cover shadow-md" />
         <div className="absolute inset-x-5 bottom-3">
