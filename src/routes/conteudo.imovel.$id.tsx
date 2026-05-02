@@ -30,6 +30,7 @@ function MediaKitPage() {
   const imovel = getImovel(id);
   const [tab, setTab] = useState<"templates" | "export" | "biblioteca">("templates");
   const [variant, setVariant] = useState<Variant>("ia");
+  const [openGerar, setOpenGerar] = useState(false);
 
   if (!imovel) {
     return (
