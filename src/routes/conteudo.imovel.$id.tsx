@@ -6,6 +6,7 @@ import { AppLayout } from "@/components/layout/AppLayout";
 import { getImovel } from "@/data/imoveis";
 import { postsDoImovel } from "@/data/posts";
 import { postsGeradosDoImovel, subscribePostsGerados } from "@/data/postsGerados";
+import { getCustom, setCustom, subscribeCustom } from "@/data/customizacaoImovel";
 import { PostPreview } from "@/components/conteudo/PostPreview";
 import { GerarPostModal } from "@/components/conteudo/GerarPostModal";
 import {
