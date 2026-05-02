@@ -8,8 +8,9 @@ import { posts as postsMock } from "@/data/posts";
 import {
   postsGeradosDoImovel,
   subscribePostsGerados,
+  getPostsVersion,
 } from "@/data/postsGerados";
-import { getCustom, subscribeCustom } from "@/data/customizacaoImovel";
+import { getCustom, subscribeCustom, getCustomVersion } from "@/data/customizacaoImovel";
 import { GerarPostModal } from "@/components/conteudo/GerarPostModal";
 import { PostPreview } from "@/components/conteudo/PostPreview";
 import type { PostMidia } from "@/lib/types";
@@ -28,8 +29,8 @@ function ConteudoIAPage() {
   const [open, setOpen] = useState(false);
 
   // re-render quando novos posts ou customização mudam
-  useSyncExternalStore(subscribePostsGerados, () => Date.now().toString(), () => "");
-  useSyncExternalStore(subscribeCustom, () => Date.now().toString(), () => "");
+  useSyncExternalStore(subscribePostsGerados, getPostsVersion, () => 0);
+  useSyncExternalStore(subscribeCustom, getCustomVersion, () => 0);
 
   // junta posts mock + gerados, agrupa por imóvel publicado, só mostra quem tem post
   const grupos = imoveis

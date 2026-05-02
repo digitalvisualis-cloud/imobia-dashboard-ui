@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
 import { imoveis } from "@/data/imoveis";
 import { gerarPostParaImovel } from "@/data/postsGerados";
-import { getCustom, subscribeCustom } from "@/data/customizacaoImovel";
+import { getCustom, subscribeCustom, getCustomVersion } from "@/data/customizacaoImovel";
 import { PostPreview, type TemplateVariant } from "./PostPreview";
 import type { Imovel } from "@/lib/types";
 
@@ -86,13 +86,8 @@ export function GerarPostModal({
   }, [busca]);
 
   const imovelAtual = imovelId ? imoveis.find((i) => i.id === imovelId) : undefined;
-  const custom = useSyncExternalStore(
-    subscribeCustom,
-    () => (imovelId ? JSON.stringify(getCustom(imovelId)) : ""),
-    () => "",
-  );
+  useSyncExternalStore(subscribeCustom, getCustomVersion, () => 0);
   const customObj = imovelId ? getCustom(imovelId) : undefined;
-  void custom;
 
   if (!open) return null;
 

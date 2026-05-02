@@ -5,8 +5,8 @@ import { toast } from "sonner";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { getImovel } from "@/data/imoveis";
 import { postsDoImovel } from "@/data/posts";
-import { postsGeradosDoImovel, subscribePostsGerados } from "@/data/postsGerados";
-import { getCustom, setCustom, subscribeCustom } from "@/data/customizacaoImovel";
+import { postsGeradosDoImovel, subscribePostsGerados, getPostsVersion } from "@/data/postsGerados";
+import { getCustom, setCustom, subscribeCustom, getCustomVersion } from "@/data/customizacaoImovel";
 import { PostPreview } from "@/components/conteudo/PostPreview";
 import { GerarPostModal } from "@/components/conteudo/GerarPostModal";
 import {
@@ -58,16 +58,8 @@ function MediaKitPage() {
   const [baixandoId, setBaixandoId] = useState<string | null>(null);
   const previewRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-  useSyncExternalStore(
-    subscribePostsGerados,
-    () => (imovel ? postsGeradosDoImovel(imovel.id).length : 0),
-    () => 0,
-  );
-  useSyncExternalStore(
-    subscribeCustom,
-    () => (imovel ? JSON.stringify(getCustom(imovel.id)) : ""),
-    () => "",
-  );
+  useSyncExternalStore(subscribePostsGerados, getPostsVersion, () => 0);
+  useSyncExternalStore(subscribeCustom, getCustomVersion, () => 0);
 
   if (!imovel) {
     return (
