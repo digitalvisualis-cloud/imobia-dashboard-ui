@@ -3,8 +3,10 @@ import type { PostMidia, TemplatePost } from "@/lib/types";
 type Listener = () => void;
 const listeners = new Set<Listener>();
 const generated: PostMidia[] = [];
+let version = 0;
 
 function emit() {
+  version++;
   listeners.forEach((l) => l());
 }
 
@@ -13,6 +15,10 @@ export function subscribePostsGerados(l: Listener) {
   return () => {
     listeners.delete(l);
   };
+}
+
+export function getPostsVersion() {
+  return version;
 }
 
 export function postsGeradosDoImovel(imovelId: string): PostMidia[] {
