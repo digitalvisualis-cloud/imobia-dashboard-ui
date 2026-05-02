@@ -159,6 +159,11 @@
 }
 
 @layer components {
+  .post-preview-shell,
+  .post-preview-shell * {
+    font-family: inherit !important;
+  }
+
   .label-eyebrow {
     font-family: var(--font-display);
     font-weight: 600;
