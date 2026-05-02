@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
 import { imoveis } from "@/data/imoveis";
+import { gerarPostsParaImovel } from "@/data/postsGerados";
 import type { Imovel } from "@/lib/types";
 
 export type FormatoPost = {
@@ -80,8 +81,9 @@ export function GerarPostModal({
     setLoading(true);
     const fmt = FORMATOS.find((f) => f.id === selected);
     setTimeout(() => {
+      gerarPostsParaImovel(imovelId, fmt?.nome ?? "Post");
       setLoading(false);
-      toast.success(`${fmt?.nome} gerado pela IA`);
+      toast.success(`3 previews gerados pela IA`);
       close();
       navigate({ to: "/conteudo/imovel/$id", params: { id: imovelId } });
     }, 1100);
