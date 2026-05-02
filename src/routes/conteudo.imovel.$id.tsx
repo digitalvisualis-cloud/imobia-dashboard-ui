@@ -95,14 +95,17 @@ function MediaKitPage() {
         {tab === "export" && (
           <section className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_360px]">
             <div className="card-soft flex items-center justify-center p-6">
-              <PostPreview imovel={imovel} variant={variant} scale={1} />
+              <div ref={previewRef}>
+                <PostPreview imovel={imovel} variant={variant} scale={1} />
+              </div>
             </div>
             <div className="space-y-4">
               <button
-                onClick={() => toast.success("PNG gerado e baixado")}
-                className="flex w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+                onClick={baixarPng}
+                disabled={baixando}
+                className="flex w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-70"
               >
-                <Download className="h-4 w-4" /> Baixar PNG
+                <Download className="h-4 w-4" /> {baixando ? "Gerando PNG..." : "Baixar PNG"}
               </button>
               <CaptionCard imovel={imovel} />
               <button
