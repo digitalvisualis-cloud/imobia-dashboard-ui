@@ -32,6 +32,30 @@ function MediaKitPage() {
   const [tab, setTab] = useState<"templates" | "export" | "biblioteca">("templates");
   const [variant, setVariant] = useState<Variant>("ia");
   const [openGerar, setOpenGerar] = useState(false);
+  const [baixando, setBaixando] = useState(false);
+  const previewRef = useRef<HTMLDivElement>(null);
+
+  async function baixarPng() {
+    if (!previewRef.current || !imovel) return;
+    try {
+      setBaixando(true);
+      const dataUrl = await toPng(previewRef.current, {
+        cacheBust: true,
+        pixelRatio: 3,
+        skipFonts: true,
+      });
+      const link = document.createElement("a");
+      link.download = `${imovel.codigo}-${variant}.png`;
+      link.href = dataUrl;
+      link.click();
+      toast.success("PNG baixado");
+    } catch (err) {
+      console.error(err);
+      toast.error("Não consegui gerar o PNG");
+    } finally {
+      setBaixando(false);
+    }
+  }
 
   if (!imovel) {
     return (
