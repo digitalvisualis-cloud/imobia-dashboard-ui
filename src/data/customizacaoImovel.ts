@@ -3,6 +3,7 @@ import type { Customizacao } from "@/components/conteudo/PostPreview";
 type Listener = () => void;
 const listeners = new Set<Listener>();
 const store = new Map<string, Customizacao>();
+let version = 0;
 
 const DEFAULT: Customizacao = {
   corPrincipal: "#717BBC",
@@ -13,6 +14,7 @@ const DEFAULT: Customizacao = {
 };
 
 function emit() {
+  version++;
   listeners.forEach((l) => l());
 }
 
@@ -21,6 +23,10 @@ export function subscribeCustom(l: Listener) {
   return () => {
     listeners.delete(l);
   };
+}
+
+export function getCustomVersion() {
+  return version;
 }
 
 export function getCustom(imovelId: string): Customizacao {
