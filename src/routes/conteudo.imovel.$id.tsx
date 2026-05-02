@@ -8,6 +8,7 @@ import { postsDoImovel } from "@/data/posts";
 import { TemplateCard, IACard } from "@/components/conteudo/TemplateCard";
 import { PostPreview } from "@/components/conteudo/PostPreview";
 import { CaptionCard } from "@/components/conteudo/CaptionCard";
+import { GerarPostModal } from "@/components/conteudo/GerarPostModal";
 import { ArrowLeft, Copy, Download, Library, Save, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { EmptyState } from "@/components/layout/EmptyState";
