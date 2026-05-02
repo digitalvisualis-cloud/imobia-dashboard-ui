@@ -152,6 +152,7 @@ function MediaKitPage() {
           )
         )}
       </div>
+      <GerarPostModal open={openGerar} onClose={() => setOpenGerar(false)} imovelId={imovel.id} />
     </AppLayout>
   );
 }
