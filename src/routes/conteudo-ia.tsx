@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Sparkles } from "lucide-react";
 import { imoveis } from "@/data/imoveis";
+import { GerarPostModal } from "@/components/conteudo/GerarPostModal";
 
 export const Route = createFileRoute("/conteudo-ia")({
   head: () => ({ meta: [{ title: "Conteúdo IA — ImobIA" }, { name: "description", content: "Posts e legendas geradas pela IA pra tuas redes." }] }),
@@ -11,6 +13,7 @@ export const Route = createFileRoute("/conteudo-ia")({
 
 function ConteudoIAPage() {
   const posts = imoveis.slice(0, 8);
+  const [open, setOpen] = useState(false);
   return (
     <AppLayout>
       <div className="space-y-6 p-4 md:p-8">
@@ -18,7 +21,14 @@ function ConteudoIAPage() {
           eyebrow="Marketing"
           title="Conteúdo IA"
           description="Posts gerados automaticamente a partir dos teus imóveis."
-          actions={<button className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"><Sparkles className="h-4 w-4" /> Gerar novo post</button>}
+          actions={
+            <button
+              onClick={() => setOpen(true)}
+              className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+            >
+              <Sparkles className="h-4 w-4" /> Gerar novo post
+            </button>
+          }
         />
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {posts.map((imv) => (
@@ -36,6 +46,7 @@ function ConteudoIAPage() {
           ))}
         </div>
       </div>
+      <GerarPostModal open={open} onClose={() => setOpen(false)} imovelId={imoveis[0]?.id} />
     </AppLayout>
   );
 }
