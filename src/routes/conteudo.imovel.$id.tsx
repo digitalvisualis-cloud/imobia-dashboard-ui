@@ -1,10 +1,11 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { toPng } from "html-to-image";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { getImovel } from "@/data/imoveis";
 import { postsDoImovel } from "@/data/posts";
+import { postsGeradosDoImovel, subscribePostsGerados } from "@/data/postsGerados";
 import { PostPreview } from "@/components/conteudo/PostPreview";
 import { GerarPostModal } from "@/components/conteudo/GerarPostModal";
 import {
