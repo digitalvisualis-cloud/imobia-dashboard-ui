@@ -1,10 +1,11 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useSyncExternalStore } from "react";
 import { Instagram, Facebook, Sparkles, X, Loader2, Check, Search, ArrowLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
 import { imoveis } from "@/data/imoveis";
 import { gerarPostParaImovel } from "@/data/postsGerados";
+import { getCustom, subscribeCustom } from "@/data/customizacaoImovel";
 import { PostPreview, type TemplateVariant } from "./PostPreview";
 import type { Imovel } from "@/lib/types";
 
@@ -85,6 +86,13 @@ export function GerarPostModal({
   }, [busca]);
 
   const imovelAtual = imovelId ? imoveis.find((i) => i.id === imovelId) : undefined;
+  const custom = useSyncExternalStore(
+    subscribeCustom,
+    () => (imovelId ? JSON.stringify(getCustom(imovelId)) : ""),
+    () => "",
+  );
+  const customObj = imovelId ? getCustom(imovelId) : undefined;
+  void custom;
 
   if (!open) return null;
 
@@ -268,7 +276,7 @@ export function GerarPostModal({
                     )}
                   >
                     <div className="overflow-hidden rounded-md">
-                      <PostPreview imovel={imovelAtual} variant={t.id} scale={0.4} />
+                      <PostPreview imovel={imovelAtual} variant={t.id} scale={0.4} custom={customObj} />
                     </div>
                     <div className="w-full px-1">
                       <div className="text-xs font-semibold leading-tight">{t.nome}</div>
