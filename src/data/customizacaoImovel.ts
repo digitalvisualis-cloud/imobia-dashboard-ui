@@ -7,7 +7,6 @@ let version = 0;
 
 const DEFAULT: Customizacao = {
   corPrincipal: "#717BBC",
-  corSecundaria: "#FFFFFF",
   corTexto: "#0F172A",
   fonte: "Inter",
   logoUrl: null,
