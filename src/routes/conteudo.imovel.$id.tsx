@@ -8,6 +8,7 @@ import { postsDoImovel } from "@/data/posts";
 import { postsGeradosDoImovel, subscribePostsGerados, getPostsVersion } from "@/data/postsGerados";
 import { getCustom, setCustom, subscribeCustom, getCustomVersion } from "@/data/customizacaoImovel";
 import { PostPreview } from "@/components/conteudo/PostPreview";
+import { CarrosselPreview } from "@/components/conteudo/CarrosselPreview";
 import { GerarPostModal } from "@/components/conteudo/GerarPostModal";
 import {
   ArrowLeft,
@@ -243,12 +244,21 @@ function MediaKitPage() {
                   <article key={p.id} className="card-soft overflow-hidden">
                     <div className="relative flex items-center justify-center bg-muted/30 p-6">
                       <div ref={(el) => { previewRefs.current[p.id] = el; }}>
-                        <PostPreview
-                          imovel={imovel}
-                          variant={p.template}
-                          scale={0.75}
-                          custom={{ corPrincipal, corTexto, fonte }}
-                        />
+                        {p.carrossel ? (
+                          <CarrosselPreview
+                            imovel={imovel}
+                            variant={p.template}
+                            scale={0.75}
+                            custom={{ corPrincipal, corTexto, fonte }}
+                          />
+                        ) : (
+                          <PostPreview
+                            imovel={imovel}
+                            variant={p.template}
+                            scale={0.75}
+                            custom={{ corPrincipal, corTexto, fonte }}
+                          />
+                        )}
                       </div>
                       <button
                         onClick={() => baixarPost(p.id)}
