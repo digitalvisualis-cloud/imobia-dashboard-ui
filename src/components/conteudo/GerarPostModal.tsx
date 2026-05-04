@@ -104,7 +104,7 @@ export function GerarPostModal({
     setLoading(true);
     const fmt = FORMATOS.find((f) => f.id === formato);
     setTimeout(() => {
-      gerarPostParaImovel(imovelId, templateSel, fmt?.nome ?? "Post");
+      gerarPostParaImovel(imovelId, templateSel, fmt?.nome ?? "Post", fmt?.formato === "carrossel");
       setLoading(false);
       toast.success("Post gerado pela IA");
       close();

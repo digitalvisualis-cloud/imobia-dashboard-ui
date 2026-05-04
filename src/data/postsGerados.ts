@@ -29,6 +29,7 @@ export function gerarPostParaImovel(
   imovelId: string,
   template: TemplatePost,
   formatoNome: string,
+  carrossel = false,
 ): PostMidia {
   const novo: PostMidia = {
     id: `gen-${imovelId}-${Date.now()}`,
@@ -37,6 +38,7 @@ export function gerarPostParaImovel(
     porIA: true,
     legenda: `✨ ${formatoNome} — Confira esse imóvel incrível! Agende sua visita pelo direct ou WhatsApp.`,
     dataIso: new Date().toISOString(),
+    carrossel,
   };
   generated.unshift(novo);
   emit();

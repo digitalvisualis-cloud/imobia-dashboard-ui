@@ -78,6 +78,7 @@ export interface PostMidia {
   porIA: boolean;
   legenda: string;
   dataIso: string;
+  carrossel?: boolean;
 }
 
 export type Etapa =
