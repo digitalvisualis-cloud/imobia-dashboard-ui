@@ -15,7 +15,6 @@ export type TemplateVariant =
 
 export type Customizacao = {
   corPrincipal?: string;
-  corSecundaria?: string;
   corTexto?: string;
   fonte?: string;
   logoUrl?: string | null;
