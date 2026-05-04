@@ -93,7 +93,7 @@ function MediaKitPage() {
     if (!node || !imovel) return;
     try {
       setBaixandoId(postId);
-      const dataUrl = await toPng(node, { cacheBust: true, pixelRatio: 3, skipFonts: true });
+      const dataUrl = await toPng(node, { cacheBust: true, pixelRatio: 3 });
       const link = document.createElement("a");
       link.download = `${imovel.codigo}-${postId}.png`;
       link.href = dataUrl;
