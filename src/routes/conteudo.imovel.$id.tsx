@@ -15,7 +15,6 @@ import {
   Sparkles,
   Image as ImageIcon,
   Paintbrush,
-  Droplet,
   Type,
   TypeOutline,
   X,
@@ -25,7 +24,6 @@ import {
 import { cn } from "@/lib/utils";
 import { EmptyState } from "@/components/layout/EmptyState";
 
-type Variant = "ia" | "clean" | "borda" | "premium";
 type CustomTab = "logo" | "cor-principal" | "cor-texto" | "fonte" | null;
 
 const PALETA = [
