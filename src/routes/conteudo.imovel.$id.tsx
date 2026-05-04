@@ -15,7 +15,6 @@ import {
   Sparkles,
   Image as ImageIcon,
   Paintbrush,
-  Droplet,
   Type,
   TypeOutline,
   X,
@@ -25,8 +24,7 @@ import {
 import { cn } from "@/lib/utils";
 import { EmptyState } from "@/components/layout/EmptyState";
 
-type Variant = "ia" | "clean" | "borda" | "premium";
-type CustomTab = "logo" | "cor-principal" | "cor-secundaria" | "cor-texto" | "fonte" | null;
+type CustomTab = "logo" | "cor-principal" | "cor-texto" | "fonte" | null;
 
 const PALETA = [
   "#FEF3C7", "#FDE68A", "#FCD34D", "#F59E0B", "#EA580C",
@@ -82,11 +80,9 @@ function MediaKitPage() {
 
   const c = getCustom(imovel.id);
   const corPrincipal = c.corPrincipal!;
-  const corSecundaria = c.corSecundaria!;
   const corTexto = c.corTexto!;
   const fonte = c.fonte!;
   const setCorPrincipal = (v: string) => setCustom(imovel.id, { corPrincipal: v });
-  const setCorSecundaria = (v: string) => setCustom(imovel.id, { corSecundaria: v });
   const setCorTexto = (v: string) => setCustom(imovel.id, { corTexto: v });
   const setFonte = (v: string) => setCustom(imovel.id, { fonte: v });
 
@@ -97,7 +93,7 @@ function MediaKitPage() {
     if (!node || !imovel) return;
     try {
       setBaixandoId(postId);
-      const dataUrl = await toPng(node, { cacheBust: true, pixelRatio: 3, skipFonts: true });
+      const dataUrl = await toPng(node, { cacheBust: true, pixelRatio: 3 });
       const link = document.createElement("a");
       link.download = `${imovel.codigo}-${postId}.png`;
       link.href = dataUrl;
@@ -113,8 +109,7 @@ function MediaKitPage() {
 
   const TABS: { id: NonNullable<CustomTab>; label: string; icon: React.ElementType }[] = [
     { id: "logo", label: "Logo", icon: ImageIcon },
-    { id: "cor-principal", label: "Cor principal", icon: Paintbrush },
-    { id: "cor-secundaria", label: "Cor secundária", icon: Droplet },
+    { id: "cor-principal", label: "Cor do post", icon: Paintbrush },
     { id: "cor-texto", label: "Cor de texto", icon: Type },
     { id: "fonte", label: "Fonte", icon: TypeOutline },
   ];
@@ -170,8 +165,7 @@ function MediaKitPage() {
               <div className="mb-4 flex items-center justify-between">
                 <h3 className="inline-flex items-center gap-2 font-display text-base font-bold">
                   {tab === "logo" && <><ImageIcon className="h-4 w-4" /> Logo</>}
-                  {tab === "cor-principal" && <><Paintbrush className="h-4 w-4" /> Cor principal</>}
-                  {tab === "cor-secundaria" && <><Droplet className="h-4 w-4" /> Cor secundária</>}
+                  {tab === "cor-principal" && <><Paintbrush className="h-4 w-4" /> Cor do post</>}
                   {tab === "cor-texto" && <><Type className="h-4 w-4" /> Cor de texto</>}
                   {tab === "fonte" && <><TypeOutline className="h-4 w-4" /> Fonte</>}
                 </h3>
@@ -196,16 +190,10 @@ function MediaKitPage() {
                 </div>
               )}
 
-              {(tab === "cor-principal" || tab === "cor-secundaria" || tab === "cor-texto") && (
+              {(tab === "cor-principal" || tab === "cor-texto") && (
                 <ColorPicker
-                  value={tab === "cor-principal" ? corPrincipal : tab === "cor-secundaria" ? corSecundaria : corTexto}
-                  onChange={(v) =>
-                    tab === "cor-principal"
-                      ? setCorPrincipal(v)
-                      : tab === "cor-secundaria"
-                      ? setCorSecundaria(v)
-                      : setCorTexto(v)
-                  }
+                  value={tab === "cor-principal" ? corPrincipal : corTexto}
+                  onChange={(v) => (tab === "cor-principal" ? setCorPrincipal(v) : setCorTexto(v))}
                 />
               )}
 
@@ -259,7 +247,7 @@ function MediaKitPage() {
                           imovel={imovel}
                           variant={p.template}
                           scale={0.75}
-                          custom={{ corPrincipal, corSecundaria, corTexto, fonte }}
+                          custom={{ corPrincipal, corTexto, fonte }}
                         />
                       </div>
                       <button

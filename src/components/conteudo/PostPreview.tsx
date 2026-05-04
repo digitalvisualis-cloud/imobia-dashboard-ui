@@ -15,7 +15,6 @@ export type TemplateVariant =
 
 export type Customizacao = {
   corPrincipal?: string;
-  corSecundaria?: string;
   corTexto?: string;
   fonte?: string;
   logoUrl?: string | null;
@@ -23,7 +22,6 @@ export type Customizacao = {
 
 type CustomResolvido = {
   principal: string;
-  secundaria: string;
   texto: string;
   fonte: string;
   logoUrl: string | null;
@@ -44,7 +42,6 @@ export function PostPreview({
   const h = 450;
   const c: CustomResolvido = {
     principal: custom?.corPrincipal ?? "#3b6cf5",
-    secundaria: custom?.corSecundaria ?? "#FFFFFF",
     texto: custom?.corTexto ?? "#0F172A",
     fonte: custom?.fonte ?? "Inter",
     logoUrl: custom?.logoUrl ?? null,
@@ -109,9 +106,8 @@ function TemplateBody({
   );
 
   // Convenção definitiva:
-  // - corPrincipal => destaques/faixas/badges/preço/accents
-  // - corSecundaria => superfícies/fundos de cards
-  // - corTexto => TODO o texto, sempre. O usuário escolhe a cor que combina com o template.
+  // - corPrincipal => TODO fundo/faixa/badge/accent do template
+  // - corTexto => TODO o texto, sempre
   // - fonte => herdada via wrapper (font-family no container raiz)
 
   // 1. IA — gradiente principal sobre foto, textos em corTexto
@@ -142,7 +138,7 @@ function TemplateBody({
     );
   }
 
-  // 2. Clean — card secundária embaixo, preço em principal, demais em corTexto
+  // 2. Clean — card principal embaixo, textos em corTexto
   if (variant === "clean") {
     return (
       <div className="relative h-full w-full">
@@ -150,15 +146,15 @@ function TemplateBody({
         <div className="absolute right-3 top-3"><Logo /></div>
         <div
           className="absolute inset-x-3 bottom-3 rounded-md p-3 shadow-lg"
-          style={{ backgroundColor: c.secundaria, color: c.texto }}
+          style={{ backgroundColor: c.principal, color: c.texto }}
         >
           <div className="flex items-center justify-between">
             <Stats />
             <div className="text-right">
               <div className="text-[9px] uppercase opacity-60">{labelPreco}</div>
-              <div className="text-base font-bold" style={{ color: c.principal }}>
+              <div className="text-base font-bold">
                 {preco}
-                <span className="text-[10px]" style={{ color: c.texto }}>{sufixoPreco}</span>
+                <span className="text-[10px]">{sufixoPreco}</span>
               </div>
             </div>
           </div>
@@ -167,10 +163,10 @@ function TemplateBody({
     );
   }
 
-  // 3. Borda — moldura secundária, faixa principal com texto em corTexto
+  // 3. Borda — moldura principal, faixa principal com texto em corTexto
   if (variant === "borda") {
     return (
-      <div className="relative h-full w-full" style={{ backgroundColor: c.secundaria, color: c.texto }}>
+      <div className="relative h-full w-full" style={{ backgroundColor: c.principal, color: c.texto }}>
         <img src={img} alt="" className="absolute inset-3 h-[calc(100%-24px)] w-[calc(100%-24px)] object-cover" />
         <div
           className="absolute inset-x-3 bottom-3 px-4 py-3"
@@ -220,10 +216,10 @@ function TemplateBody({
     );
   }
 
-  // 5. Minimal — fundo secundária, badge principal, textos em corTexto
+  // 5. Minimal — fundo principal, badge principal, textos em corTexto
   if (variant === "minimal") {
     return (
-      <div className="relative h-full w-full" style={{ backgroundColor: c.secundaria, color: c.texto }}>
+      <div className="relative h-full w-full" style={{ backgroundColor: c.principal, color: c.texto }}>
         <img src={img} alt="" className="absolute inset-0 h-3/4 w-full object-cover" />
         <div
           className="absolute right-3 top-3 rounded-full px-3 py-1 text-xs font-bold"
@@ -242,24 +238,24 @@ function TemplateBody({
     );
   }
 
-  // 6. Magazine — fundo secundária, eyebrow + preço em principal, demais em corTexto
+  // 6. Magazine — fundo principal, textos em corTexto
   if (variant === "magazine") {
     return (
       <div
         className="relative h-full w-full"
-        style={{ backgroundColor: c.secundaria, color: c.texto }}
+        style={{ backgroundColor: c.principal, color: c.texto }}
       >
         <img src={img} alt="" className="absolute inset-x-0 top-0 h-3/5 w-full object-cover" />
         <div className="absolute inset-x-0 bottom-0 h-2/5 p-4">
-          <div className="text-[10px] uppercase tracking-[0.3em]" style={{ color: c.principal }}>
+          <div className="text-[10px] uppercase tracking-[0.3em]">
             Destaque da semana
           </div>
           <div className="mt-1 text-2xl font-bold italic leading-tight">{imovel.bairro}</div>
           <div className="my-2 h-px w-12" style={{ backgroundColor: c.texto, opacity: 0.3 }} />
           <Stats />
-          <div className="mt-2 text-lg font-bold" style={{ color: c.principal }}>
+          <div className="mt-2 text-lg font-bold">
             {preco}
-            <span className="text-xs" style={{ color: c.texto }}>{sufixoPreco}</span>
+            <span className="text-xs">{sufixoPreco}</span>
           </div>
         </div>
       </div>
@@ -329,29 +325,29 @@ function TemplateBody({
         </div>
         <div
           className="absolute inset-x-0 bottom-0 p-4"
-          style={{ background: `linear-gradient(to top, ${c.secundaria}, transparent)`, color: c.texto }}
+          style={{ background: `linear-gradient(to top, ${c.principal}, transparent)`, color: c.texto }}
         >
           <div className="text-lg font-bold">{imovel.titulo}</div>
           <div className="text-xs opacity-80">{imovel.bairro} · {imovel.cidade}</div>
           <div className="mt-2 flex items-end justify-between">
             <Stats />
-            <div className="text-lg font-bold" style={{ color: c.principal }}>{preco}</div>
+            <div className="text-lg font-bold">{preco}</div>
           </div>
         </div>
       </div>
     );
   }
 
-  // 10. Polaroid — fundo secundária, título em principal, resto em corTexto
+  // 10. Polaroid — fundo principal, textos em corTexto
   if (variant === "polaroid") {
     return (
       <div
         className="relative h-full w-full p-5 pb-12"
-        style={{ backgroundColor: c.secundaria, color: c.texto }}
+        style={{ backgroundColor: c.principal, color: c.texto }}
       >
         <img src={img} alt="" className="h-[70%] w-full object-cover shadow-md" />
         <div className="absolute inset-x-5 bottom-3">
-          <div className="text-base font-bold leading-tight" style={{ color: c.principal }}>
+          <div className="text-base font-bold leading-tight">
             {imovel.bairro}
           </div>
           <div className="text-[10px] opacity-70">{imovel.cidade}/{imovel.uf} · {imovel.area}m²</div>
