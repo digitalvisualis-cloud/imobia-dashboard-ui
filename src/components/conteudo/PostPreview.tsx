@@ -54,6 +54,7 @@ export function PostPreview({
         width: w * scale,
         height: h * scale,
         fontFamily: c.fonte,
+        ["--post-preview-font" as string]: c.fonte,
         color: c.texto,
       }}
     >
