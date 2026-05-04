@@ -159,9 +159,12 @@
 }
 
 @layer components {
-  .post-preview-shell,
   .post-preview-shell * {
     font-family: inherit !important;
+  }
+
+  .post-preview-shell {
+    font-family: var(--post-preview-font, inherit);
   }
 
   .label-eyebrow {
